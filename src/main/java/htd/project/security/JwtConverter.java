@@ -1,4 +1,4 @@
-package org.example.security;
+package htd.project.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;

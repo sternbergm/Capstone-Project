@@ -1,0 +1,12 @@
+Misha Sternberg Schedule:
+sunday:
+    1. Build Module model and repository. Test both.
+Monday:
+    1. Build Cohort model and repository .Test both.
+    2. Build ContractorCohortModule model and repository. test both
+Tuesday
+    1. Build Module, Cohort and ContractorCohortModule services
+    2. test services
+    3. create controllers for all 3 models
+    4. test all 3 controllers.
+    5. Begin frontend

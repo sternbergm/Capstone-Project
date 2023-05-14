@@ -1,7 +1,7 @@
-package org.example.data;
+package htd.project.data;
 
-import org.example.data.mappers.AppUserMapper;
-import org.example.models.AppUser;
+import htd.project.models.AppUser;
+import htd.project.data.mappers.AppUserMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.security.core.GrantedAuthority;

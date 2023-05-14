@@ -1,6 +1,6 @@
-package org.example.data;
+package htd.project.data;
 
-import org.example.models.AppUser;
+import htd.project.models.AppUser;
 
 public interface AppUserRepository {
 

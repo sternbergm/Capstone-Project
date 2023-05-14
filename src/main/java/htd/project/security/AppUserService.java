@@ -1,7 +1,7 @@
-package org.example.security;
+package htd.project.security;
 
-import org.example.data.AppUserRepository;
-import org.example.models.AppUser;
+import htd.project.data.AppUserRepository;
+import htd.project.models.AppUser;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

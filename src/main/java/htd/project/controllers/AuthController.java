@@ -1,8 +1,8 @@
-package org.example.controllers;
+package htd.project.controllers;
 
-import org.example.security.AppUserService;
-import org.example.models.AppUser;
-import org.example.security.JwtConverter;
+import htd.project.security.AppUserService;
+import htd.project.models.AppUser;
+import htd.project.security.JwtConverter;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
