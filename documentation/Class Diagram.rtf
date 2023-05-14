@@ -20,9 +20,9 @@
 \tab\tab\b Interface ObjectRepository<Object>\b0\par
 \tab\tab\tab +readAll() : List<Object>\par
 \tab\tab\tab +readById(int id) : Object\par
-\tab\tab\tab +create(Object object) : ResponseEntity<Object>\par
-\tab\tab\tab +update(Object object): ResponseEntity<Void>\par
-\tab\tab\tab +delete(int objectId) : ResponseEntity<Void>\par
+\tab\tab\tab +create(Object object) : Object\par
+\tab\tab\tab +update(Object object): boolean\par
+\tab\tab\tab +delete(int objectId) : boolean\par
 \tab\tab\b Public ContractorJdbcTemplateRepository implements \tab\tab\tab\tab\tab\tab\tab\tab\tab\tab ObjectRepository<Contractor>\b0\par
 \tab\tab\tab -JdbcTemplate jdbcTemplate\par
 \tab\tab\tab +ContractorJdbcTemplateRepository(JdbcTemplate)\par

@@ -10,3 +10,5 @@ Tuesday
     3. create controllers for all 3 models
     4. test all 3 controllers.
     5. Begin frontend
+
+Shirisha schedule:
