@@ -8,7 +8,7 @@ Tuesday
     1. Build Module, Cohort and ContractorCohortModule services
     2. test services
     3. create controllers for all 3 models
-    4. test all 3 controllers.
-    5. Begin frontend
-
+Wednesday
+    1. test all 3 controllers.
+    2. Begin frontend
 Shirisha schedule:
