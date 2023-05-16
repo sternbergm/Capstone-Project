@@ -1,6 +1,7 @@
 package htd.project.data;
 
 import htd.project.data.mappers.CohortMapper;
+import htd.project.data.mappers.ContractorMapper;
 import htd.project.data.mappers.ModuleMapper;
 import htd.project.models.Cohort;
 import htd.project.models.Contractor;
