@@ -72,7 +72,7 @@ public class ContractorCohortModuleJdbcTemplateRepository implements ContractorC
 
     @Override
     public ContractorCohortModule create(ContractorCohortModule ccm) {
-        final String sql = "insert into contractor_cohort_module contractor_id, cohort_id, module_id, grade values (?,?,?,?);";
+        final String sql = "insert into contractor_cohort_module (contractor_id, cohort_id, module_id, grade) values (?,?,?,?);";
 
 
         int rowsAffected = 0;

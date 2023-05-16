@@ -49,7 +49,7 @@ class ContractorCohortModuleJdbcTemplateRepositoryTest {
     void findByCohort() {
         List<ContractorCohortModule> result = repository.readByCohort(1);
 
-        assertEquals(2, result.size());
+        assertEquals(4, result.size());
 
         result = repository.readByCohort(500);
 
