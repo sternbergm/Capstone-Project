@@ -6,10 +6,10 @@ import java.util.List;
 
 public interface ContractorCohortModuleRepository {
 
-    List<ContractorCohortModule> findAll();
-	ContractorCohortModule findByContractor(int contractorId);
-    ContractorCohortModule findByCohort(int cohortId);
-    ContractorCohortModule findByModule(int moduleId);
+    List<ContractorCohortModule> readAll();
+	List<ContractorCohortModule> readByContractor(int contractorId);
+	List<ContractorCohortModule> readByCohort(int cohortId);
+	List<ContractorCohortModule> readByModule(int moduleId);
 	ContractorCohortModule create(ContractorCohortModule ccm);
 	boolean update(ContractorCohortModule ccm);
 	boolean deleteByIds(int contractorId, int cohortId, int moduleId);

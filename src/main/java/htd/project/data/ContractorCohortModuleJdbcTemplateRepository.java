@@ -20,7 +20,7 @@ public class ContractorCohortModuleJdbcTemplateRepository implements ContractorC
     }
 
     @Override
-    public List<ContractorCohortModule> findAll() {
+    public List<ContractorCohortModule> readAll() {
         final String sql = "select " +
                 "contractor_id, " +
                 "cohort_id, " +
@@ -36,33 +36,33 @@ public class ContractorCohortModuleJdbcTemplateRepository implements ContractorC
     }
 
     @Override
-    public ContractorCohortModule findByContractor(int contractorId) {
+    public List<ContractorCohortModule> readByContractor(int contractorId) {
         final String sql = "select contractor_id, cohort_id, module_id, grade from contractor_cohort_module where contractor_id = ?;";
 
         try {
-            return jdbcTemplate.query(sql, new ContractorCohortModuleMapper(), contractorId).stream().findFirst().orElse(null);
+            return jdbcTemplate.query(sql, new ContractorCohortModuleMapper(), contractorId);
         } catch (DataAccessException e) {
             return null;
         }
     }
 
     @Override
-    public ContractorCohortModule findByCohort(int cohortId) {
+    public List<ContractorCohortModule> readByCohort(int cohortId) {
         final String sql = "select contractor_id, cohort_id, module_id, grade from contractor_cohort_module where cohort_id = ?;";
 
         try {
-            return jdbcTemplate.query(sql, new ContractorCohortModuleMapper(), cohortId).stream().findFirst().orElse(null);
+            return jdbcTemplate.query(sql, new ContractorCohortModuleMapper(), cohortId);
         } catch (DataAccessException e) {
             return null;
         }
     }
 
     @Override
-    public ContractorCohortModule findByModule(int moduleId) {
+    public List<ContractorCohortModule> readByModule(int moduleId) {
         final String sql = "select contractor_id, cohort_id, module_id, grade from contractor_cohort_module where module_id = ?;";
 
         try {
-            return jdbcTemplate.query(sql, new ContractorCohortModuleMapper(), moduleId).stream().findFirst().orElse(null);
+            return jdbcTemplate.query(sql, new ContractorCohortModuleMapper(), moduleId);
         } catch (DataAccessException e) {
             return null;
         }

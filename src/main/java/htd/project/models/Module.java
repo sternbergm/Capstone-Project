@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -33,4 +34,11 @@ public class Module {
     @Max(value = 20, message = "amount of exercises must be between 0 and 20")
     private int lessonAmount;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Module module = (Module) o;
+        return Objects.equals(topic, module.topic) && Objects.equals(startDate, module.startDate) && Objects.equals(endDate, module.endDate);
+    }
 }
