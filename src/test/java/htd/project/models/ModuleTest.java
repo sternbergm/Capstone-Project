@@ -63,4 +63,47 @@ class ModuleTest {
 
         assertEquals(1, errors.size());
     }
+
+    @Test
+    void validatorShouldFailDate() {
+        Module module = new Module(1, "Topic", null, LocalDate.of(2023,04,07), 5, 5);
+        Set<ConstraintViolation<Module>> errors = validator.validate(module);
+
+        assertEquals(1, errors.size());
+
+        module = new Module(1, "Topic",  LocalDate.of(2023,04,07), null, 5, 5);
+
+        errors = validator.validate(module);
+
+        assertEquals(1, errors.size());
+
+    }
+
+    @Test
+    void validatorShouldFailExerciseAmount() {
+        Module module = new Module(1, "Topic", LocalDate.of(2023, 04, 01), LocalDate.of(2023,04,07), -5, 5);
+        Set<ConstraintViolation<Module>> errors = validator.validate(module);
+
+        assertEquals(1, errors.size());
+
+        module.setExerciseAmount(55);
+
+       errors = validator.validate(module);
+
+        assertEquals(1, errors.size());
+    }
+
+    @Test
+    void validatorShouldFailLessonAmount() {
+        Module module = new Module(1, "Topic", LocalDate.of(2023, 04, 01), LocalDate.of(2023,04,07), 5, -5);
+        Set<ConstraintViolation<Module>> errors = validator.validate(module);
+
+        assertEquals(1, errors.size());
+
+        module.setLessonAmount(55);
+
+        errors = validator.validate(module);
+
+        assertEquals(1, errors.size());
+    }
 }
