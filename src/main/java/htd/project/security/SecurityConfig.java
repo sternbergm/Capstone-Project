@@ -41,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //        .antMatchers(HttpMethod.DELETE, "/sighting/*").hasRole("ADMIN")
 
         http.authorizeRequests()
+                .antMatchers("/hello").permitAll()
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/create_account").permitAll()
                 .antMatchers("/refresh_token").authenticated()
