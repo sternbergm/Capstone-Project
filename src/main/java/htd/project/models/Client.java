@@ -25,7 +25,6 @@ public class Client {
     private String address;
     @NotBlank(message = "companySize is Required")
     @NotNull(message = "companySize cannot be Null")
-    @Size(max = 50, message = "companySize cannot be greater than 50 characters")
     private int companySize;
     @NotBlank(message = "email is Required")
     @NotNull(message = "email cannot be Null")
