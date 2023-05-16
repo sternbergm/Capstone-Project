@@ -1,9 +1,7 @@
 package htd.project.data;
 
 import htd.project.data.mappers.ContractorMapper;
-import htd.project.data.mappers.ModuleMapper;
 import htd.project.models.Contractor;
-import htd.project.models.Module;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -98,11 +96,41 @@ public class ContractorJdbcTemplateRepository implements ObjectRepository<Contra
 
     @Override
     public boolean update(Contractor contractor) {
-        return false;
+        final String sql = "update contractors set " +
+                "contractor_id = ?, " +
+                "first_name = ?, " +
+                "last_name = ?, " +
+                "date_of_birth = ?, " +
+                "address = ?, " +
+                "email = ?, " +
+                "salary = ?, " +
+                "isHired = ? " +
+                "where contractor_id = ?;";
+
+        int rowsUpdated = 0;
+
+        try {
+            rowsUpdated = jdbcTemplate.update(sql, contractor.getFirstName(),contractor.getLastName(),contractor.getDateOfBirth(),contractor.getAddress(),contractor.getEmail(),contractor.getSalary(),contractor.isHired,contractor.getContractorId());
+        } catch (DataAccessException e) {
+            return false;
+        }
+
+        return rowsUpdated>0;
     }
 
     @Override
     public boolean delete(int id) {
-        return false;
+        final String sql = "delete from contractors " +
+                "where contractor_id = ?;";
+
+        int rowsDeleted = 0;
+
+        try {
+            rowsDeleted = jdbcTemplate.update(sql, id);
+        } catch (DataAccessException e) {
+            return false;
+        }
+
+        return rowsDeleted>0;
     }
-}
+    }

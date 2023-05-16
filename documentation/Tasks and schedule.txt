@@ -18,5 +18,5 @@ Monday:
 3.Build Instructor model and Repository.
 
 Tuesday:
-1.JdBc Template for Instructor,Client,Contractor
+1.JdBc Template for Instructor,Client,Contractor,(Client,Contractor,Instructor)Mappers
 2.Testing all this Repositories
