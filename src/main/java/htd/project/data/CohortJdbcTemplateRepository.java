@@ -110,7 +110,7 @@ public class CohortJdbcTemplateRepository implements ObjectRepository<Cohort> {
 
                 ps.setDate(1, Date.valueOf(cohort.getStart_date()));
                 ps.setDate(2, Date.valueOf(cohort.getEnd_date()));
-                ps.setInt(3, cohort.getClient().getClientId);
+                ps.setInt(3, cohort.getClient().getClientId());
                 ps.setInt(4, cohort.getInstructor().getInstructorId());
                 return ps;
             }, keys);
