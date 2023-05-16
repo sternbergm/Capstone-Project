@@ -13,7 +13,7 @@ public class ClientMapper implements RowMapper<Client> {
 
             Client result = new Client();
             result.setClientId(resultSet.getInt("client_id"));
-            result.setClientName(resultSet.getString("`name`"));
+            result.setClientName(resultSet.getString("name"));
             result.setAddress(resultSet.getString("address"));
             result.setCompanySize(resultSet.getInt("company_size"));
             result.setEmail(resultSet.getString("email"));

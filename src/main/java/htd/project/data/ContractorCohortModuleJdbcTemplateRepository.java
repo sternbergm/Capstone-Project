@@ -6,11 +6,13 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
 
+@Repository
 public class ContractorCohortModuleJdbcTemplateRepository implements ContractorCohortModuleRepository{
 
     private JdbcTemplate jdbcTemplate;
@@ -70,7 +72,7 @@ public class ContractorCohortModuleJdbcTemplateRepository implements ContractorC
 
     @Override
     public ContractorCohortModule create(ContractorCohortModule ccm) {
-        final String sql = "insert into contractor_cohort_module contractor_id, cohort_id, module_id, grade values (?,?,?,?);";
+        final String sql = "insert into contractor_cohort_module (contractor_id, cohort_id, module_id, grade) values (?,?,?,?);";
 
 
         int rowsAffected = 0;

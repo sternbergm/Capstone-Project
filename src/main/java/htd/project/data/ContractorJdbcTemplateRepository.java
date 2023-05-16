@@ -6,14 +6,19 @@ import htd.project.models.Contractor;
 import htd.project.models.Module;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+
+import org.springframework.stereotype.Repository;
+
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
 
+@Repository
 public class ContractorJdbcTemplateRepository implements ObjectRepository<Contractor> {
     private JdbcTemplate jdbcTemplate;
 

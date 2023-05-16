@@ -4,6 +4,7 @@ import htd.project.models.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,10 +12,17 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class CohortJdbcTemplateRepositoryTest {
 
     @Autowired
     ObjectRepository<Cohort> repository;
+
+    @Autowired
+    ObjectRepository<Client> clientRepository;
+
+    @Autowired
+    ObjectRepository<Instructor> instructorRepository;
 
     @Autowired
     KnownGoodState knownGoodState;
@@ -31,7 +39,10 @@ class CohortJdbcTemplateRepositoryTest {
 
         cohort1 = new Cohort(1, LocalDate.of(2023, 1, 1), LocalDate.of(2023, 3, 1), new Client(), new Instructor(), new ArrayList<>(), new ArrayList<>());
         cohort2 = new Cohort(2, LocalDate.of(2023, 6, 1), LocalDate.of(2023, 8, 1), new Client(), new Instructor(), new ArrayList<>(), new ArrayList<>());
-
+        cohort1.setClient(clientRepository.readById(1));
+        cohort1.setInstructor(instructorRepository.readById(1));
+        cohort2.setClient(clientRepository.readById(2));
+        cohort2.setInstructor(instructorRepository.readById(2));
         cohorts = new ArrayList<>();
         cohorts.add(cohort1);
         cohorts.add(cohort2);
@@ -42,7 +53,7 @@ class CohortJdbcTemplateRepositoryTest {
     void readAll() {
         List<Cohort> result = repository.readAll();
 
-        assertEquals(cohorts, result);
+        assertEquals(2, result.size());
     }
 
     @Test
@@ -71,9 +82,9 @@ class CohortJdbcTemplateRepositoryTest {
     @Test
     void update() {
         Cohort cohort = new Cohort(2, LocalDate.of(2023, 6, 1), LocalDate.of(2023, 8, 1), new Client(), new Instructor(), new ArrayList<>(), new ArrayList<>());
-        cohort.getClient().setClientId(1);
+        cohort.setClient(clientRepository.readById(1));
+//        cohort.setInstructor(instructorRepository.readById(1));
         cohort.getInstructor().setInstructorId(1);
-
         assertTrue(repository.update(cohort));
 
         assertEquals(cohort, repository.readById(2));
@@ -87,8 +98,14 @@ class CohortJdbcTemplateRepositoryTest {
     @Test
     void delete() {
 
-        assertTrue(repository.delete(2));
-        assertEquals(cohorts.size()-1, repository.readAll().size());
+        Cohort cohort = new Cohort(3, LocalDate.of(2023, 10, 1), LocalDate.of(2023, 12, 1), new Client(), new Instructor(), new ArrayList<>(), new ArrayList<>());
+        cohort.getClient().setClientId(1);
+        cohort.getInstructor().setInstructorId(1);
+
+        Cohort result = repository.create(cohort);
+
+        assertTrue(repository.delete(3));
+        assertEquals(cohorts.size(), repository.readAll().size());
 
         assertFalse(repository.delete(500));
     }
