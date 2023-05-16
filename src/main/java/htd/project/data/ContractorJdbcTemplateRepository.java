@@ -3,9 +3,11 @@ package htd.project.data;
 import htd.project.models.Contractor;
 import htd.project.models.Module;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class ContractorJdbcTemplateRepository implements ObjectRepository<Contractor> {
     private JdbcTemplate jdbcTemplate;
 

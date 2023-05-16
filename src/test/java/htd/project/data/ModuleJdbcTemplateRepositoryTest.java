@@ -79,10 +79,14 @@ class ModuleJdbcTemplateRepositoryTest {
     @Test
     void delete() {
 
-        assertTrue(repository.delete(2));
-        assertEquals(1, repository.readAll().size());
+        Module test = new Module(3, "SpringBoot", LocalDate.of(2023, 05, 8), LocalDate.of(2023, 05, 15), 6, 6);
+
+        Module actual = repository.create(test);
+
+        assertTrue(repository.delete(3));
+        assertEquals(2, repository.readAll().size());
 
         assertFalse(repository.delete(500));
-        assertEquals(1, repository.readAll().size());
+        assertEquals(2, repository.readAll().size());
     }
 }

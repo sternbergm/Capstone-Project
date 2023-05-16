@@ -4,6 +4,7 @@ import htd.project.models.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class CohortJdbcTemplateRepositoryTest {
 
     @Autowired
@@ -87,8 +89,14 @@ class CohortJdbcTemplateRepositoryTest {
     @Test
     void delete() {
 
-        assertTrue(repository.delete(2));
-        assertEquals(cohorts.size()-1, repository.readAll().size());
+        Cohort cohort = new Cohort(3, LocalDate.of(2023, 10, 1), LocalDate.of(2023, 12, 1), new Client(), new Instructor(), new ArrayList<>(), new ArrayList<>());
+        cohort.getClient().setClientId(1);
+        cohort.getInstructor().setInstructorId(1);
+
+        Cohort result = repository.create(cohort);
+
+        assertTrue(repository.delete(3));
+        assertEquals(cohorts.size(), repository.readAll().size());
 
         assertFalse(repository.delete(500));
     }

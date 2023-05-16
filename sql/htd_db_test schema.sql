@@ -81,9 +81,10 @@ create table contractor_cohort_module (
 delimiter //
 create procedure set_known_good_state()
 begin
-	delete from cohorts;
-    alter table cohorts auto_increment = 1;
+	
     delete from contractor_cohort_module;
+    delete from cohorts;
+    alter table cohorts auto_increment = 1;
     delete from contractors;
     alter table contractors auto_increment = 1;
     delete from clients;
