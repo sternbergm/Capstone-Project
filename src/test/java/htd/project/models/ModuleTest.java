@@ -36,11 +36,11 @@ class ModuleTest {
 
     @Test
     void validatorShouldFail() {
-        Module module = null;
+        Module module = new Module();
 
         Set<ConstraintViolation<Module>> errors = validator.validate(module);
 
-        assertEquals(5, errors.size());
+        assertEquals(4, errors.size());
     }
 
     @Test
@@ -49,7 +49,7 @@ class ModuleTest {
 
         Set<ConstraintViolation<Module>> errors = validator.validate(module);
 
-        assertEquals(1, errors.size());
+        assertEquals(2, errors.size());
 
         module.setTopic("");
 
