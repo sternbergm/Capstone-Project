@@ -12,3 +12,11 @@ Wednesday
     1. test all 3 controllers.
     2. Begin frontend
 Shirisha schedule:
+Monday:
+1.Build client model and Repository.
+2.Build Contractor model and Repository.
+3.Build Instructor model and Repository.
+
+Tuesday:
+1.JdBc Template for Instructor,Client,Contractor
+2.Testing all this Repositories
