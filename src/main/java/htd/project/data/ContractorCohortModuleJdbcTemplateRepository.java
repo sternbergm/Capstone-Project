@@ -21,7 +21,12 @@ public class ContractorCohortModuleJdbcTemplateRepository implements ContractorC
 
     @Override
     public List<ContractorCohortModule> findAll() {
-        final String sql = "select contractor_id, cohort_id, module_id, grade from contractor_cohort_module;";
+        final String sql = "select " +
+                "contractor_id, " +
+                "cohort_id, " +
+                "module_id, " +
+                "grade " +
+                "from contractor_cohort_module;";
 
         try {
             return jdbcTemplate.query(sql, new ContractorCohortModuleMapper());

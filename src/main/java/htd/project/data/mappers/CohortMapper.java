@@ -14,9 +14,13 @@ public class CohortMapper implements RowMapper<Cohort> {
         cohort.setStart_date(resultSet.getDate("start_date").toLocalDate());
         cohort.setEnd_date(resultSet.getDate("end_date").toLocalDate());
 
+        ClientMapper clientMapper = new ClientMapper();
 
-        cohort.setClient(new CLientMapper(resultSet, i));
-        cohort.setInstructor(new InstructorMapper(resultSet, i));
+        cohort.setClient(clientMapper.mapRow(resultSet, i));
+
+        InstructorMapper instructorMapper = new InstructorMapper();
+
+        cohort.setInstructor(instructorMapper.mapRow(resultSet, i));
 
         return cohort;
     }

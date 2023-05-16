@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CohortJdbcTemplateRepositoryTest {
@@ -19,18 +21,29 @@ class CohortJdbcTemplateRepositoryTest {
 
     Cohort cohort2;
 
-
+    List<Cohort> cohorts;
 
     @BeforeEach
     void setUp() {
+        knownGoodState.set();
     }
 
     @Test
     void readAll() {
+        List<Cohort> result = repository.readAll();
+
+        assertEquals(cohorts, result);
     }
 
     @Test
     void readById() {
+        Cohort result = repository.readById(1);
+
+        assertEquals(cohort1, result);
+
+        result = repository.readById(500);
+
+        assertNull(result);
     }
 
     @Test

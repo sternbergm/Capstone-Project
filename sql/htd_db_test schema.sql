@@ -96,6 +96,29 @@ begin
     insert into modules values 
     (1, 'Spring', '2023-04-01', '2023-04-07', 5, 5),
     (2, 'File IO', '2023-04-08', '2023-04-15', 4, 4);
+    
+    insert into contractors values 
+    (1, 'John', 'Doe', '1990-01-01', '123 way st', 'john@doe.com', 30000, true),
+    (2, 'Jane', 'Doe', '1990-10-10', '456 main ave', 'Jane@doe.com', 40000, true);
+    
+    insert into clients values
+    (1, 'Main bank', 'One Main st', 1000, 'info@mainbank.com'),
+    (2, 'Realtors CO', '200 cherry road', 150, 'realtors@mail.com');
+    
+    insert into instructors values
+    (1, 'James', 'Bond', 30, 'espionage', 30000),
+    (2, 'Indiana', 'Jones', 20, 'History', 35000);
+    
+    insert into cohorts values 
+    (1, '2023-01-01', '2023-03-01', 1, 1),
+    (2, '2023-06-01', '2023-08-01', 2, 2);
+    
+    insert into contractor_cohort_module values
+    (1, 1, 1, 90),
+    (2, 1, 1, 95),
+    (1, 1, 2, 85),
+    (2, 1, 2, 80);
+    
 end //
 -- 4. Change the statement terminator back to the original.
 delimiter ;
