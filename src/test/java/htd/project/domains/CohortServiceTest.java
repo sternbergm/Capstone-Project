@@ -2,10 +2,9 @@ package htd.project.domains;
 
 import htd.project.data.ContractorCohortModuleRepository;
 import htd.project.data.ObjectRepository;
-import htd.project.models.Client;
-import htd.project.models.Cohort;
-import htd.project.models.Instructor;
+import htd.project.models.*;
 import htd.project.models.Module;
+import org.apache.tomcat.jni.Local;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +48,14 @@ class CohortServiceTest {
         assertTrue(result.isSuccessful());
         assertEquals(cohort, result.getPayload());
 
+        cohort.setStart_date(null);
+
+        result = service.create(cohort);
+
+        assertFalse(result.isSuccessful());
+
+        cohort.setStart_date(LocalDate.now());
+
         when(cohortRepository.readAll()).thenReturn(List.of(cohort));
 
         result = service.create(cohort);
@@ -59,9 +66,60 @@ class CohortServiceTest {
 
     @Test
     void update() {
+        when(cohortRepository.update(cohort)).thenReturn(true);
+        when(cohortRepository.readAll()).thenReturn(List.of(cohort));
+        Result<Cohort> result = service.update(cohort);
+
+        assertTrue(result.isSuccessful());
+        assertEquals(cohort, result.getPayload());
+
+        cohort.setStart_date(null);
+
+        result = service.update(cohort);
+
+        assertFalse(result.isSuccessful());
+
+        cohort.setStart_date(LocalDate.now());
+
+        when(cohortRepository.update(cohort)).thenReturn(false);
+
+        result = service.update(cohort);
+
+        assertFalse(result.isSuccessful());
+
+        when(cohortRepository.readAll()).thenReturn(new ArrayList<>());
+        result = service.update(cohort);
+
+        assertFalse(result.isSuccessful());
     }
 
     @Test
     void delete() {
+        when(cohortRepository.delete(1)).thenReturn(true);
+        when(cohortRepository.readAll()).thenReturn(List.of(cohort));
+        when(CCMRepository.readByCohort(1)).thenReturn(new ArrayList<>());
+
+        Result<Void> result = service.delete(1);
+
+        assertTrue(result.isSuccessful());
+
+        when(cohortRepository.delete(1)).thenReturn(false);
+        result = service.delete(1);
+
+        assertFalse(result.isSuccessful());
+
+        when(cohortRepository.delete(1)).thenReturn(true);
+        when(CCMRepository.readByCohort(1)).thenReturn(List.of(new ContractorCohortModule()));
+        result = service.delete(1);
+
+        assertFalse(result.isSuccessful());
+
+        when(CCMRepository.readByCohort(1)).thenReturn(new ArrayList<>());
+        when(cohortRepository.readAll()).thenReturn(new ArrayList<>());
+        result = service.delete(1);
+
+        assertFalse(result.isSuccessful());
+
+
     }
 }

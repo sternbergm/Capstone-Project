@@ -62,7 +62,7 @@ class ModuleServiceTest {
     @Test
     void update() {
         when(moduleRepository.update(module)).thenReturn(true);
-
+        when(moduleRepository.readAll()).thenReturn(List.of(module));
         Result<Module> result = service.update(module);
 
         assertTrue(result.isSuccessful());
@@ -70,6 +70,12 @@ class ModuleServiceTest {
         assertEquals(module, result.getPayload());
 
         when(moduleRepository.update(module)).thenReturn(false);
+
+        result = service.update(module);
+
+        assertFalse(result.isSuccessful());
+
+        when(moduleRepository.readAll()).thenReturn(new ArrayList<>());
 
         result = service.update(module);
 
