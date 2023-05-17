@@ -74,7 +74,7 @@ class ClientJdbcTemplateRepositoryTest {
         assertEquals(2, repository.readAll().size());
 
         test = new Client(2,"client changed","Address change",135,"own@gmail.com");
-        assertFalse(repository.update(test));
+        assertTrue(repository.update(test));
     }
 
     @Test
