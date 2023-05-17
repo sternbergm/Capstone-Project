@@ -47,6 +47,9 @@ public class ModuleService {
         Result<Module> result = validate(module);
         if(!result.isSuccessful()) return  result;
 
+        validateContains(module.getModuleId(), result);
+        if(!result.isSuccessful()) return  result;
+
         if(!repository.update(module)) {
             result.addMessage("Database Error when updating module");
             return result;
@@ -91,19 +94,23 @@ public class ModuleService {
         }
     }
     private Result<Void> validateDelete(int moduleId){
-        List<Module> modules = findAll();
-        Result<Void> result = new Result<>();
-        if(modules.stream().noneMatch(m -> m.getModuleId() == moduleId)) {
-            result.addMessage("Module Id not present in modules, cannot delete");
-            return result;
-        }
 
+        Result<Void> result = new Result<>();
+        validateContains(moduleId, result);
+        if(!result.isSuccessful()) return result;
 
         if(CCMRepository.readByModule(moduleId).size()>0) {
             result.addMessage("Module is currently in use in a cohort, you must delete this relation first");
         }
 
         return result;
+    }
+
+    private void validateContains(int moduleId, Result result) {
+        List<Module> modules = findAll();
+        if(modules.stream().noneMatch(m -> m.getModuleId() == moduleId)) {
+            result.addMessage("Module Id not present in modules");
+        }
     }
 
 }

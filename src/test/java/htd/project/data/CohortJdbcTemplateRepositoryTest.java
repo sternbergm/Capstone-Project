@@ -83,8 +83,7 @@ class CohortJdbcTemplateRepositoryTest {
     void update() {
         Cohort cohort = new Cohort(2, LocalDate.of(2023, 6, 1), LocalDate.of(2023, 8, 1), new Client(), new Instructor(), new ArrayList<>(), new ArrayList<>());
         cohort.setClient(clientRepository.readById(1));
-//        cohort.setInstructor(instructorRepository.readById(1));
-        cohort.getInstructor().setInstructorId(1);
+        cohort.setInstructor(instructorRepository.readById(1));
         assertTrue(repository.update(cohort));
 
         assertEquals(cohort, repository.readById(2));
