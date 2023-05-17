@@ -30,7 +30,8 @@ public class ClientJdbcTemplateRepository implements ObjectRepository<Client>{
                 "`name`, " +
                 "address, " +
                 "company_size, " +
-                "email;";
+                "email " +
+                "from clients;";
         try {
             return jdbcTemplate.query(sql, new ClientMapper());
         } catch (DataAccessException e) {
@@ -58,7 +59,7 @@ public class ClientJdbcTemplateRepository implements ObjectRepository<Client>{
 
     @Override
     public Client create(Client client) {
-        final String sql = "insert into Clients (`name`,address,company_size,email) " +
+        final String sql = "insert into clients (`name`,address,company_size,email) " +
                 "values (?,?,?,?);";
 
         int rowsAffected = 0;
@@ -91,7 +92,7 @@ public class ClientJdbcTemplateRepository implements ObjectRepository<Client>{
                 "`name`= ?, " +
                 "address = ?, " +
                 "company_size = ?, " +
-                "email = ?, " +
+                "email = ? " +
                 "where client_id = ?;";
         int rowsUpdated = 0;
         try {
