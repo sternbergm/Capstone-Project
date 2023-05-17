@@ -33,8 +33,9 @@ public class ContractorJdbcTemplateRepository implements ObjectRepository<Contra
                 "date_of_birth, " +
                 "address, " +
                 "email, " +
-                "salary " +
-                "isHired;";
+                "salary, " +
+                "isHired " +
+                "from contractors;";
         try {
             return jdbcTemplate.query(sql, new ContractorMapper());
         } catch (DataAccessException e) {
@@ -53,7 +54,7 @@ public class ContractorJdbcTemplateRepository implements ObjectRepository<Contra
                 "address, " +
                 "email, " +
                 "salary, " +
-                "isHired, " +
+                "isHired " +
                 "from contractors " +
                 "where contractor_id= ?;";
         try {
@@ -66,7 +67,7 @@ public class ContractorJdbcTemplateRepository implements ObjectRepository<Contra
     @Override
     public Contractor create(Contractor contractor) {
         final String sql = "insert into Contractors (first_name, last_name, date_of_birth, address, email,salary,isHired) " +
-                "values (?,?,?,?,?,?);";
+                "values (?,?,?,?,?,?,?);";
 
         int rowsAffected = 0;
         KeyHolder keys = new GeneratedKeyHolder();
@@ -76,7 +77,7 @@ public class ContractorJdbcTemplateRepository implements ObjectRepository<Contra
                 PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1, contractor.getFirstName());
                 ps.setString(2, contractor.getLastName());
-                ps.setDate(3, contractor.getDateOfBirth());
+                ps.setDate(3, Date.valueOf(contractor.getDateOfBirth()));
                 ps.setString(4, contractor.getAddress());
                 ps.setString(5, contractor.getEmail());
                 ps.setBigDecimal(6, contractor.getSalary());
@@ -97,7 +98,6 @@ public class ContractorJdbcTemplateRepository implements ObjectRepository<Contra
     @Override
     public boolean update(Contractor contractor) {
         final String sql = "update contractors set " +
-                "contractor_id = ?, " +
                 "first_name = ?, " +
                 "last_name = ?, " +
                 "date_of_birth = ?, " +
@@ -110,7 +110,7 @@ public class ContractorJdbcTemplateRepository implements ObjectRepository<Contra
         int rowsUpdated = 0;
 
         try {
-            rowsUpdated = jdbcTemplate.update(sql, contractor.getFirstName(),contractor.getLastName(),contractor.getDateOfBirth(),contractor.getAddress(),contractor.getEmail(),contractor.getSalary(),contractor.isHired,contractor.getContractorId());
+            rowsUpdated = jdbcTemplate.update(sql, contractor.getFirstName(),contractor.getLastName(),Date.valueOf(contractor.getDateOfBirth()),contractor.getAddress(),contractor.getEmail(),contractor.getSalary(),contractor.isHired(),contractor.getContractorId());
         } catch (DataAccessException e) {
             return false;
         }

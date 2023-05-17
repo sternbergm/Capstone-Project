@@ -34,8 +34,7 @@ public class InstructorJdbcTemplateRepository implements ObjectRepository<Instru
                 "years_of_experience, " +
                 "expertise, " +
                 "salary " +
-                "from contractors;";
-
+                "from instructors;";
         try {
             return jdbcTemplate.query(sql, new InstructorMapper());
         } catch (DataAccessException e) {
@@ -48,14 +47,14 @@ public class InstructorJdbcTemplateRepository implements ObjectRepository<Instru
     public Instructor readById(int id) {
 
         final String sql = "select " +
-                "instructor_id, " +
+                "instructor_id, "+
                 "first_name, " +
                 "last_name, " +
                 "years_of_experience, " +
                 "expertise, " +
                 "salary " +
-                "from contractors " +
-                "where  = instructor_id?;";
+                "from instructors " +
+                "where instructor_id = ?;";
         try {
             return jdbcTemplate.query(sql, new InstructorMapper(), id).stream().findFirst().orElse(null);
         } catch (DataAccessException e) {
@@ -66,8 +65,8 @@ public class InstructorJdbcTemplateRepository implements ObjectRepository<Instru
     @Override
     public Instructor create(Instructor instructor) {
 
-        final String sql = "insert into instructors (instructor_id,first_name,last_name,years_of_experience,expertise,salary) " +
-                "values (?,?,?,?,?,?);";
+        final String sql = "insert into instructors (first_name,last_name,years_of_experience,expertise,salary) " +
+                "values (?,?,?,?,?);";
         int rowsAffected = 0;
         KeyHolder keys = new GeneratedKeyHolder();
         try {
@@ -90,11 +89,7 @@ public class InstructorJdbcTemplateRepository implements ObjectRepository<Instru
 
     @Override
     public boolean update(Instructor instructor) {
-
-
-
         final String sql = "update instructors set " +
-                "instructor_id = ?, " +
                 "first_name = ?, " +
                 "last_name = ?, " +
                 "years_of_experience = ?, " +

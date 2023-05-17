@@ -80,10 +80,13 @@ class ClientJdbcTemplateRepositoryTest {
     @Test
     void delete() {
 
-       // Client test = new Client(3, "Realtors CO", "200 cherry road", 150, "realtors@mail.com");
-      //  Client test new Client
+        Client test = new Client(3,"RealCO", "777 cherry road", 190, "realtors@mail.com");
+        Client actual = repository.create(test);
 
-       // assertTrue(repository.update(test));
+        assertTrue(repository.delete(3));
+        assertEquals(2, repository.readAll().size());
 
+        assertFalse(repository.delete(500));
+        assertEquals(2, repository.readAll().size());
     }
 }

@@ -11,6 +11,8 @@ import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,7 +29,7 @@ public class Contractor {
 
     private String lastName;
     @NotBlank(message = "dateOfBirth is Required")
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
 
     @NotBlank(message = "address is Required")
     @NotNull(message = "address cannot be Null")
