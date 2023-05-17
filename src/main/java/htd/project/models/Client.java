@@ -23,13 +23,12 @@ public class Client {
     @NotNull(message = "Address cannot be Null")
     @Size(max = 50, message = "Address cannot be greater than 50 characters")
     private String address;
-    @NotBlank(message = "companySize is Required")
-    @NotNull(message = "companySize cannot be Null")
+
+    @PositiveOrZero
     private int companySize;
     @NotBlank(message = "email is Required")
     @NotNull(message = "email cannot be Null")
     @Size(max = 50, message = "email cannot be greater than 50 characters")
     private String email;
-
 
 }

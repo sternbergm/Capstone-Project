@@ -27,8 +27,6 @@ public class Contractor {
 
     private String lastName;
     @NotBlank(message = "dateOfBirth is Required")
-    @NotNull(message = "dateOfBirth cannot be Null")
-    @Size(max = 50, message = "dateOfBirth cannot be greater than 50 characters")
     private Date dateOfBirth;
 
     @NotBlank(message = "address is Required")

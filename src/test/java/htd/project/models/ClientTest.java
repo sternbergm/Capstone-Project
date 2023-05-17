@@ -18,6 +18,7 @@ class ClientTest {
 
     Client client;
     Validator validator;
+
     @BeforeEach
     void setUp() {
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
@@ -26,9 +27,18 @@ class ClientTest {
 
     @Test
     void validatorShouldPass() {
-        Client client =new Client(1, "Main bank", "One Main st", 1000, "info@mainbank.com");
+        Client client = new Client(1, "Main bank", "One Main st", 1000, "info@mainbank.com");
         Set<ConstraintViolation<Client>> errors = validator.validate(client);
-
         assertEquals(0, errors.size());
     }
+
+    @Test
+    void validatorShouldFail() {
+        Client client = new Client(1, null, null, 100, null);
+
+        Set<ConstraintViolation<Client>> errors = validator.validate(client);
+
+        assertEquals(6, errors.size());
+    }
+
 }
