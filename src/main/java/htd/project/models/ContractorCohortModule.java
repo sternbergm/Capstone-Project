@@ -9,6 +9,7 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Data
 @NoArgsConstructor
@@ -29,4 +30,16 @@ public class ContractorCohortModule {
     @DecimalMin(value = "0.00", message = "grade cannot be below 0%")
     private BigDecimal grade;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContractorCohortModule that = (ContractorCohortModule) o;
+        return ContractorId == that.ContractorId && CohortId == that.CohortId && moduleId == that.moduleId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ContractorId, CohortId, moduleId);
+    }
 }
