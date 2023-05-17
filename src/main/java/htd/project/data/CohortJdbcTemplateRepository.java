@@ -111,8 +111,8 @@ public class CohortJdbcTemplateRepository implements ObjectRepository<Cohort> {
             rowsAffected = jdbcTemplate.update(connection -> {
                 PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-                ps.setDate(1, Date.valueOf(cohort.getStart_date()));
-                ps.setDate(2, Date.valueOf(cohort.getEnd_date()));
+                ps.setDate(1, Date.valueOf(cohort.getStartDate()));
+                ps.setDate(2, Date.valueOf(cohort.getEndDate()));
                 ps.setInt(3, cohort.getClient().getClientId());
                 ps.setInt(4, cohort.getInstructor().getInstructorId());
                 return ps;
@@ -141,8 +141,8 @@ public class CohortJdbcTemplateRepository implements ObjectRepository<Cohort> {
 
         try {
             rowsUpdated = jdbcTemplate.update(sql,
-                    Date.valueOf(cohort.getStart_date()),
-                    Date.valueOf(cohort.getEnd_date()),
+                    Date.valueOf(cohort.getStartDate()),
+                    Date.valueOf(cohort.getEndDate()),
                     cohort.getClient().getClientId(),
                     cohort.getInstructor().getInstructorId(),
                     cohort.getCohortId());

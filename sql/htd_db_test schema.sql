@@ -77,11 +77,17 @@ create table contractor_cohort_module (
 		references modules(module_id)
 );
 
+create table  globalExceptions (
+	`timestamp` datetime primary key,
+    stackTrace text
+);
+
 
 delimiter //
 create procedure set_known_good_state()
 begin
 	
+    delete from globalExceptions;
     delete from contractor_cohort_module;
     delete from cohorts;
     alter table cohorts auto_increment = 1;
@@ -99,8 +105,8 @@ begin
     (2, 'File IO', '2023-04-08', '2023-04-15', 4, 4);
     
     insert into contractors values 
-    (1, 'John', 'Doe', '1990-01-01', '123 way st', 'john@doe.com', 30000, true),
-    (2, 'Jane', 'Doe', '1990-10-10', '456 main ave', 'Jane@doe.com', 40000, true);
+    (1, 'John', 'Doe', '1990-01-01', '123 way st', 'john@doe.com', 30000, True),
+    (2, 'Jane', 'Doe', '1990-10-10', '456 main ave', 'Jane@doe.com', 40000, True);
     
     insert into clients values
     (1, 'Main bank', 'One Main st', 1000, 'info@mainbank.com'),

@@ -1,0 +1,18 @@
+GET http://localhost:8080/module HTTP/1.1
+
+###
+
+POST http://localhost:8080/module HTTP/1.1
+Content-Type: application/json
+
+{
+    "moduleId": 3,
+    "topic": "SpringBoot",
+    "startDate": "2023-04-08",
+    "endDate": "2023-04-15",
+    "exerciseAmount": 4,
+    "lessonAmount": 4
+  }
+
+  ###
+  

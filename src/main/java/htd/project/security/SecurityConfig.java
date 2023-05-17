@@ -1,6 +1,7 @@
 package htd.project.security;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -45,6 +46,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/create_account").permitAll()
                 .antMatchers("/refresh_token").authenticated()
+                .antMatchers(HttpMethod.GET, "/module").permitAll()
+                .antMatchers(HttpMethod.GET, "/module/*").permitAll()
+                .antMatchers(HttpMethod.POST, "/module").permitAll()
+                .antMatchers(HttpMethod.PUT, "/module/*").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/module/*").permitAll()
                 .antMatchers("/**").denyAll()
                 // if we get to this point, let's deny all requests
                 .and()

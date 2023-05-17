@@ -2,9 +2,9 @@ package htd.project.domains;
 
 import htd.project.data.ContractorCohortModuleRepository;
 import htd.project.data.ObjectRepository;
+import htd.project.models.Client;
 import htd.project.models.Cohort;
-import htd.project.models.ContractorCohortModule;
-import htd.project.models.Module;
+import htd.project.models.Instructor;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
@@ -18,10 +18,20 @@ import java.util.Set;
 public class CohortService {
 
     private ObjectRepository<Cohort> repository;
+
+    private ObjectRepository<Client> clientRepository;
+
+    private ObjectRepository<Instructor> instructorRepository;
     private ContractorCohortModuleRepository CCMRepository;
 
-    public CohortService(ObjectRepository<Cohort> repository, ContractorCohortModuleRepository CCMRepository) {
+    public CohortService(
+            ObjectRepository<Cohort> repository,
+            ObjectRepository<Client> clientRepository,
+            ObjectRepository<Instructor> instructorRepository,
+            ContractorCohortModuleRepository CCMRepository) {
         this.repository = repository;
+        this.clientRepository = clientRepository;
+        this.instructorRepository = instructorRepository;
         this.CCMRepository = CCMRepository;
     }
 
@@ -88,9 +98,26 @@ public class CohortService {
                     errors) {
                 result.addMessage(violation.getMessage());
             }
+            return result;
+        }
+
+        if(cohort.getStartDate().isAfter(cohort.getEndDate()) || cohort.getStartDate().isEqual(cohort.getEndDate())) {
+            result.addMessage("Start date cannot be before or equal to end date");
+            return result;
+        }
+
+        if(clientRepository.readById(cohort.getClient().getClientId()) == null) {
+            result.addMessage("Client must already exist in database");
+            return result;
+        }
+
+        if(instructorRepository.readById(cohort.getInstructor().getInstructorId()) == null) {
+            result.addMessage("instructor must already exist in database");
+            return result;
         }
 
         return result;
+
     }
 
     private void validateDuplicates(Cohort cohort, Result<Cohort> result) {

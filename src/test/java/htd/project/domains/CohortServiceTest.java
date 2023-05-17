@@ -3,8 +3,6 @@ package htd.project.domains;
 import htd.project.data.ContractorCohortModuleRepository;
 import htd.project.data.ObjectRepository;
 import htd.project.models.*;
-import htd.project.models.Module;
-import org.apache.tomcat.jni.Local;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,13 +46,13 @@ class CohortServiceTest {
         assertTrue(result.isSuccessful());
         assertEquals(cohort, result.getPayload());
 
-        cohort.setStart_date(null);
+        cohort.setStartDate(null);
 
         result = service.create(cohort);
 
         assertFalse(result.isSuccessful());
 
-        cohort.setStart_date(LocalDate.now());
+        cohort.setStartDate(LocalDate.now());
 
         when(cohortRepository.readAll()).thenReturn(List.of(cohort));
 
@@ -73,13 +71,13 @@ class CohortServiceTest {
         assertTrue(result.isSuccessful());
         assertEquals(cohort, result.getPayload());
 
-        cohort.setStart_date(null);
+        cohort.setStartDate(null);
 
         result = service.update(cohort);
 
         assertFalse(result.isSuccessful());
 
-        cohort.setStart_date(LocalDate.now());
+        cohort.setStartDate(LocalDate.now());
 
         when(cohortRepository.update(cohort)).thenReturn(false);
 

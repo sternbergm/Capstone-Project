@@ -16,10 +16,10 @@ public class Cohort {
     private int cohortId;
 
     @NotNull(message = "Start date cannot be null")
-    private LocalDate start_date;
+    private LocalDate startDate;
 
     @NotNull(message = "End date cannot be null")
-    private LocalDate end_date;
+    private LocalDate endDate;
 
     @NotNull(message = "client cannot be null")
     private Client client;

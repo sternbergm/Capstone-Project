@@ -11,8 +11,8 @@ public class CohortMapper implements RowMapper<Cohort> {
     public Cohort mapRow(ResultSet resultSet, int i) throws SQLException {
         Cohort cohort = new Cohort();
         cohort.setCohortId(resultSet.getInt("cohort_id"));
-        cohort.setStart_date(resultSet.getDate("start_date").toLocalDate());
-        cohort.setEnd_date(resultSet.getDate("end_date").toLocalDate());
+        cohort.setStartDate(resultSet.getDate("start_date").toLocalDate());
+        cohort.setEndDate(resultSet.getDate("end_date").toLocalDate());
 
         ClientMapper clientMapper = new ClientMapper();
 

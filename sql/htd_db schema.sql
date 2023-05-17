@@ -76,3 +76,8 @@ create table contractor_cohort_module (
 		foreign key (module_id)
 		references modules(module_id)
 );
+
+create table  globalExceptions (
+	`timestamp` datetime primary key,
+    stackTrace text
+);

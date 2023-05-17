@@ -2,7 +2,7 @@
 -- todo set the db you want to use
 -- drop database if exists testdb;
 -- create database testdb;
-use htd_db;
+use htd_db_test;
 
 drop table if exists app_user_role;
 drop table if exists app_role;

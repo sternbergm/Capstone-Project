@@ -81,6 +81,12 @@ public class ModuleService {
                     errors) {
                 result.addMessage(violation.getMessage());
             }
+
+            return result;
+        }
+
+        if(module.getStartDate().isAfter(module.getEndDate())) {
+            result.addMessage("Start date cannot be before end date");
         }
 
         return result;
