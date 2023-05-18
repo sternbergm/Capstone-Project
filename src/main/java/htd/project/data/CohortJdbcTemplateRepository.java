@@ -92,6 +92,8 @@ public class CohortJdbcTemplateRepository implements ObjectRepository<Cohort> {
             return null;
         }
 
+        if(cohort == null) return null;
+
         addContractors(cohort);
         addModules(cohort);
 
@@ -172,8 +174,8 @@ public class CohortJdbcTemplateRepository implements ObjectRepository<Cohort> {
 
     private void addContractors(Cohort cohort) {
         final String sql = "select " +
+                "distinct ccm.contractor_id, " +
                 "ccm.cohort_id, " +
-                "contractor_id, " +
                 "first_name, " +
                 "last_name, " +
                 "date_of_birth, " +
@@ -183,7 +185,7 @@ public class CohortJdbcTemplateRepository implements ObjectRepository<Cohort> {
                 "isHired " +
                 "from contractors " +
                 "inner join contractor_cohort_module ccm on contractors.contractor_id = ccm.contractor_id " +
-                "where ccm.cohort_id = ?;";
+                "where ccm.cohort_id = ?";
 
         List<Contractor> contractors;
 
@@ -200,8 +202,8 @@ public class CohortJdbcTemplateRepository implements ObjectRepository<Cohort> {
     private void addModules(Cohort cohort) {
 
         final String sql = "select " +
+                "distinct ccm.module_id, " +
                 "ccm.cohort_id, " +
-                "module_id, " +
                 "topic, " +
                 "start_date, " +
                 "end_date, " +
