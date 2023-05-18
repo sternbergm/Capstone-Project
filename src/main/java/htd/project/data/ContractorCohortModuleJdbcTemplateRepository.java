@@ -124,7 +124,7 @@ public class ContractorCohortModuleJdbcTemplateRepository implements ContractorC
         int rowsDeleted = 0;
 
         try {
-            rowsDeleted = jdbcTemplate.update(sql, contractorId, contractorId, moduleId);
+            rowsDeleted = jdbcTemplate.update(sql, contractorId, cohortId, moduleId);
         } catch (DataAccessException e) {
             return false;
         }

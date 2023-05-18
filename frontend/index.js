@@ -4,6 +4,7 @@ import { clientController } from "./controllers/clientService.js";
 import { instructorController } from "./controllers/instructorService.js";
 import { cohortController } from "./controllers/cohortService.js";
 import { contractorController } from "./controllers/contractorService.js";
+import { gradeController } from "./controllers/gradesService.js";
 import { viewErrors } from "./controllers/errorService.js";
 const prompt = createPrompt();
 
