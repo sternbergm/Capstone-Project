@@ -2,6 +2,7 @@ package htd.project.domains;
 
 import htd.project.data.ContractorCohortModuleRepository;
 import htd.project.data.ObjectRepository;
+import htd.project.models.Cohort;
 import htd.project.models.ContractorCohortModule;
 import htd.project.models.Instructor;
 import htd.project.models.Module;
@@ -26,6 +27,9 @@ class InstructorServiceTest {
 
     @MockBean
     ObjectRepository<Instructor> instructorRepository;
+    @MockBean
+    ObjectRepository<Cohort> cohortRepository;
+
 
     Instructor instructor;
 
@@ -99,6 +103,7 @@ class InstructorServiceTest {
 
         when(instructorRepository.delete(1)).thenReturn(true);
         when(instructorRepository.readAll()).thenReturn(List.of(instructor));
+        when(cohortRepository.readAll()).thenReturn(new ArrayList<>());
 
         Result<Void> result = service.delete(1);
 
@@ -117,7 +122,5 @@ class InstructorServiceTest {
 
 
     }
-
-
 
 }

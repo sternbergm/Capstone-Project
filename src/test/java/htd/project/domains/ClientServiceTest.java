@@ -3,6 +3,7 @@ package htd.project.domains;
 import htd.project.data.ContractorCohortModuleRepository;
 import htd.project.data.ObjectRepository;
 import htd.project.models.Client;
+import htd.project.models.Cohort;
 import htd.project.models.ContractorCohortModule;
 import htd.project.models.Module;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,6 +26,9 @@ class ClientServiceTest {
 
     @MockBean
     ObjectRepository<Client> clientRepository;
+
+    @MockBean
+    ObjectRepository<Cohort> cohortRepository;
 
     Client client;
 
@@ -88,6 +92,7 @@ class ClientServiceTest {
 
         when(clientRepository.delete(1)).thenReturn(true);
         when(clientRepository.readAll()).thenReturn(List.of(client));
+        when(cohortRepository.readAll()).thenReturn(new ArrayList<>());
 
         Result<Void> result = service.delete(1);
 
