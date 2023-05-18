@@ -2,6 +2,8 @@ package htd.project.controllers;
 
 import htd.project.data.GlobalExceptionRepository;
 import htd.project.models.Error;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,8 +21,8 @@ public class ErrorController {
     }
 
     @GetMapping
-    public List<Error> getAll() {
-        return repository.getAll();
+    public ResponseEntity<List<Error>> getAll() {
+        return new ResponseEntity<>(repository.getAll(), HttpStatus.OK);
     }
 
 }

@@ -49,13 +49,7 @@ async function getAllInstructors() {
 
 async function getInstructorById() {
     let instructorId = prompt("Enter instructor Id you wish to view ");
-    return fetch(`http://localhost:8080/instructor/${instructorId}`, {method: "GET", headers: {"Content-Type": "application/json"}})
-    .then(async (response) => {
-        if (response.status !== 200) {
-            return Promise.reject((await response.json())[0]);
-        }
-        return response.json();
-    }).catch((err) => console.log(err));
+     
 }
 
 async function addInstructor() {

@@ -61,12 +61,12 @@ async function addcontractor() {
     let token = await getAuth();
     const data = {
 
-        "firstName": prompt("Enter constractor first name "),
-        "lastName": prompt("Enter constractor last name "),
-        "dateOfBirth": prompt("Enter constractor date of birth "),
-        "address": prompt("Enter constractor address "),
-        "email": prompt("Enter constractor email "),
-        "salary": prompt("Enter constractor salary "),
+        "firstName": prompt("Enter contractor first name "),
+        "lastName": prompt("Enter contractor last name "),
+        "dateOfBirth": prompt("Enter contractor date of birth "),
+        "address": prompt("Enter contractor address "),
+        "email": prompt("Enter contractor email "),
+        "salary": prompt("Enter contractor salary "),
         "isHired": prompt("was the contractor hired? ")
 
     }
@@ -89,12 +89,12 @@ async function updatecontractor() {
     const data = {
 
         "contractorId":contractorId,
-        "firstName": prompt("Enter constractor first name "),
-        "lastName": prompt("Enter constractor last name "),
-        "dateOfBirth": prompt("Enter constractor date of birth "),
-        "address": prompt("Enter constractor address "),
-        "email": prompt("Enter constractor email "),
-        "salary": prompt("Enter constractor salary "),
+        "firstName": prompt("Enter contractor first name "),
+        "lastName": prompt("Enter contractor last name "),
+        "dateOfBirth": prompt("Enter contractor date of birth "),
+        "address": prompt("Enter contractor address "),
+        "email": prompt("Enter contractor email "),
+        "salary": prompt("Enter contractor salary "),
         "isHired": prompt("was the contractor hired? ")
 
     }
