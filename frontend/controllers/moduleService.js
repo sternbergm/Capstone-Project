@@ -22,10 +22,12 @@ export async function moduleController() {
                     console.log(response);
                     break;
                 case "4":
-                    await updateModule();
+                    response = await updateModule();
+                    console.log(response);
                     break;
                 case "5": 
-                    await deleteModule();
+                    response = await deleteModule();
+                    console.log(response);
                     break;
         }
 
@@ -57,11 +59,11 @@ async function getModuleById() {
 async function addModule() {
     let token = await getAuth();
     const data = {
-        "topic": prompt("Enter module topic"),
-        "startDate": prompt("Enter module startDate (yyyy-mm-dd)"),
-        "endDate": prompt("Enter module end date (yyyy-mm-dd)"),
-        "exerciseAmount": prompt("Enter number of exercises in the module"),
-        "lessonAmount": prompt("Enter number of lessons in the module")
+        "topic": prompt("Enter module topic "),
+        "startDate": prompt("Enter module startDate (yyyy-mm-dd) "),
+        "endDate": prompt("Enter module end date (yyyy-mm-dd) "),
+        "exerciseAmount": prompt("Enter number of exercises in the module "),
+        "lessonAmount": prompt("Enter number of lessons in the module ")
     }
 
     return fetch("http://localhost:8080/module", 
@@ -79,14 +81,14 @@ async function addModule() {
 
 async function updateModule() {
     let token = await getAuth();
-    let moduleId = prompt("what is the Id of the module you wish to update?");
+    let moduleId = prompt("what is the Id of the module you wish to update? ");
     const data = {
         "moduleId": moduleId,
-        "topic": prompt("Enter module topic"),
-        "startDate": prompt("Enter module startDate (yyyy-mm-dd)"),
-        "endDate": prompt("Enter module end date (yyyy-mm-dd)"),
-        "exerciseAmount": prompt("Enter number of exercises in the module"),
-        "lessonAmount": prompt("Enter number of lessons in the module")
+        "topic": prompt("Enter module topic "),
+        "startDate": prompt("Enter module startDate (yyyy-mm-dd) "),
+        "endDate": prompt("Enter module end date (yyyy-mm-dd) "),
+        "exerciseAmount": prompt("Enter number of exercises in the module "),
+        "lessonAmount": prompt("Enter number of lessons in the module ")
     }
 
     return fetch(`http://localhost:8080/module/${moduleId}`, 
@@ -94,10 +96,27 @@ async function updateModule() {
     headers: {"Content-Type": "application/json", accept: "application/json", authorization: "Bearer " + token.jwt_token}, 
     body: JSON.stringify(data)})
     .then((response) => {
-        if (response.status !== 201) {
+        if (response.status !== 204) {
             console.log(response);
             return Promise.reject("The promise was not okay.");
         }
-        return response.json();
+        return `Module ${moduleId} was updated.`;
+    });
+}
+
+
+async function deleteModule() {
+    let token = await getAuth();
+    let moduleId = prompt("what is the Id of the module you wish to delete? ");
+
+    return fetch(`http://localhost:8080/module/${moduleId}`, 
+    {method: "DELETE", 
+    headers: {"Content-Type": "application/json", accept: "application/json", authorization: "Bearer " + token.jwt_token}})
+    .then((response) => {
+        if (response.status !== 204) {
+            console.log(response);
+            return Promise.reject("The promise was not okay.");
+        }
+        return `Module ${moduleId} was deleted.`;
     });
 }

@@ -5,11 +5,10 @@ Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huQHNtaXRoLmNvbSIsImF1
 
 POST http://localhost:8080/module HTTP/1.1
 Content-Type: application/json
-Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huQHNtaXRoLmNvbSIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTiIsImV4cCI6MTY4NDM1NTAwN30.kOWMaRespoYIOvPmz1jBdsPqZpTH70KwAK5mWEQErQ8"
+Authorization: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIVEQtQkFDS0VORCIsInN1YiI6ImpvaG5Ac21pdGguY29tIiwiYXV0aG9yaXRpZXMiOiJST0xFX0FETUlOIiwiZXhwIjoxNjg0NDM3MDA4fQ.ewh3MA1ZKx3dOJiyjitJtSMVsYe2K5irSIKhjNZFm_I
 
 {
-    "moduleId": 3,
-    "topic": "SpringBoot",
+    "topic": "frontEnd",
     "startDate": "2023-04-08",
     "endDate": "2023-04-15",
     "exerciseAmount": 4,
@@ -27,8 +26,13 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8080/module/1 HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqb2huQHNtaXRoLmNvbSIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTiIsImV4cCI6MTY4NDM1NTk5Nn0.SCAEE4mNswgzRbw5U2zVKWotxA_9v9yIYc0uguCyfbs
+POST http://localhost:8080/refresh_token HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIVEQtQkFDS0VORCIsInN1YiI6ImpvaG5Ac21pdGguY29tIiwiYXV0aG9yaXRpZXMiOiJST0xFX0FETUlOIiwiZXhwIjoxNjg0NDM3NTg3fQ.DavO5u0f2CDfgxNgYQfDdaYFICH_YiEKrKdb8qlMzpw
+
+
+###
+DELETE http://localhost:8080/module/4 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIVEQtQkFDS0VORCIsInN1YiI6ImpvaG5Ac21pdGguY29tIiwiYXV0aG9yaXRpZXMiOiJST0xFX0FETUlOIiwiZXhwIjoxNjg0NDM3MDA4fQ.ewh3MA1ZKx3dOJiyjitJtSMVsYe2K5irSIKhjNZFm_I
 
 ###
 GET http://localhost:8080/cohort HTTP/1.1

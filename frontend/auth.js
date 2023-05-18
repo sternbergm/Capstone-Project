@@ -24,10 +24,9 @@ async function login() {
 
 async function refresh() {
 
-    return fetch("http://localhost:8080/refresh", 
+    return fetch("http://localhost:8080/refresh_token", 
     {method: "POST", 
-    headers: {"Content-Type": "application/json", accept: "application/json", authorization: "Bearer " + authToken.jwt_token}, 
-    body: JSON.stringify({username, password})})
+    headers: {"Content-Type": "application/json", accept: "application/json", authorization: "Bearer " + authToken.jwt_token}})
     .then((response) => {
         if (response.status !== 200) {
             console.log(response);
@@ -41,7 +40,6 @@ async function refresh() {
 export async function getAuth() {
     if(!authToken) {
         authToken = await login();
-        console.log(authToken);
     }
     else {
         authToken = await refresh();
