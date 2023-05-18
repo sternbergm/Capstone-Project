@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/grade", "/grade/cohort/*", "/grade/contractor/*", "/grade/module/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/module", "/cohort", "/grade", "/client", "/contractor", "/instructor").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.PUT, "/module/*", "/cohort/*", "/grade", "/client/*", "/contractor/*", "/instructor/*").hasAnyRole("USER", "ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/module/*", "/cohort/*", "/grade", "/client", "/contractor", "/instructor").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/module/*", "/cohort/*", "/grade", "/client/*", "/contractor/*", "/instructor/*").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/**").denyAll()
                 // if we get to this point, let's deny all requests
                 .and()

@@ -11,16 +11,26 @@ import htd.project.models.Module;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@SpringBootTest
+@AutoConfigureMockMvc
 class ClientControllerTest {
 
     @MockBean
@@ -44,6 +54,7 @@ class ClientControllerTest {
         jsonMapper.registerModule(new JavaTimeModule());
         jsonMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 
+        client = new Client(1, "Main bank", "One Main st", 1000, "info@mainbank.com");
 
         Map<String, String> user = new HashMap<>();
         user.put("username", "john@smith.com");
@@ -57,14 +68,88 @@ class ClientControllerTest {
     }
 
     @Test
-    void add() {
+    void add() throws Exception {
+        when(repository.create(client)).thenReturn(client);
+        when(repository.readAll()).thenReturn(new ArrayList<>());
+
+        String jsonClient = jsonMapper.writeValueAsString(client);
+
+        HttpHeaders header = new HttpHeaders();
+        header.add("Authorization", "Bearer "+token);
+
+        var request = post("/client")
+                .headers(header)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonClient);
+
+        mvc.perform(request)
+                .andExpect(status().isCreated())
+                .andExpect(content().json(jsonClient));
+
+        when(repository.readAll()).thenReturn(List.of(client));
+
+        mvc.perform(request)
+                .andExpect(status().isBadRequest());
     }
 
     @Test
-    void update() {
+    void update() throws Exception {
+        when(repository.update(client)).thenReturn(true);
+        when(repository.readAll()).thenReturn(List.of(client));
+
+        String jsonClient = jsonMapper.writeValueAsString(client);
+
+        HttpHeaders header = new HttpHeaders();
+        header.add("Authorization", "Bearer "+token);
+
+        var request = put("/client/1")
+                .headers(header)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonClient);
+
+        mvc.perform(request)
+                .andExpect(status().isNoContent());
+
+        when(repository.readAll()).thenReturn(new ArrayList<>());
+
+        mvc.perform(request)
+                .andExpect(status().isBadRequest());
+
+        request = put("/client/15")
+                .headers(header)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonClient);
+
+        mvc.perform(request)
+                .andExpect(status().isConflict());
     }
 
     @Test
-    void delete() {
+    void testDelete() throws Exception {
+        when(repository.delete(client.getClientId())).thenReturn(true);
+        when(repository.readAll()).thenReturn(List.of(client));
+        when(cohortRepository.readAll()).thenReturn(new ArrayList<>());
+
+        String jsonClient = jsonMapper.writeValueAsString(client);
+
+        HttpHeaders header = new HttpHeaders();
+        header.add("Authorization", "Bearer "+token);
+
+        var request = delete("/client/1")
+                .headers(header);
+
+        mvc.perform(request)
+                .andExpect(status().isNoContent());
+
+        when(repository.readAll()).thenReturn(new ArrayList<>());
+
+        mvc.perform(request)
+                .andExpect(status().isBadRequest());
+
+        request = delete("/client/15")
+                .headers(header);
+
+        mvc.perform(request)
+                .andExpect(status().isBadRequest());
     }
 }
