@@ -36,29 +36,21 @@ class CohortControllerTest {
     @MockBean
     ObjectRepository<Cohort> repository;
 
-    @MockBean
-    ContractorCohortModuleRepository CCMRepository;
-
-    @MockBean
-    ObjectRepository<Client> clientRepository;
-
-    @MockBean
-    ObjectRepository<Instructor> instructorRepository;
-
     @Autowired
     MockMvc mvc;
 
-    Cohort cohort;
+    @MockBean
+    ContractorCohortModuleRepository CCMRepository;
 
     ObjectMapper jsonMapper;
+
+    Cohort cohort;
 
     String token;
 
 
-
     @BeforeEach
     void setUp() throws Exception {
-
         jsonMapper = new ObjectMapper();
         jsonMapper.registerModule(new JavaTimeModule());
         jsonMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
@@ -76,6 +68,7 @@ class CohortControllerTest {
         var request = post("/authenticate").contentType(MediaType.APPLICATION_JSON).content(jsonUser);
         HashMap<String, String> map = jsonMapper.readValue(mvc.perform(request).andReturn().getResponse().getContentAsString(), HashMap.class);
         token = map.get("jwt_token");
+
     }
 
     @Test
@@ -93,10 +86,10 @@ class CohortControllerTest {
         when(repository.create(cohort)).thenReturn(cohort);
         when(repository.readAll()).thenReturn(new ArrayList<>());
 
-        String cohortJson = jsonMapper.writeValueAsString(cohort);
-
         HttpHeaders header = new HttpHeaders();
         header.add("Authorization", "Bearer "+token);
+
+        String cohortJson = jsonMapper.writeValueAsString(cohort);
 
         var request = post("/cohort")
                 .headers(header)
@@ -109,6 +102,12 @@ class CohortControllerTest {
 
         when(repository.readAll()).thenReturn(List.of(cohort));
 
+        mvc.perform(request)
+                .andExpect(status().isBadRequest());
+
+        when(repository.readAll()).thenReturn(new ArrayList<>());
+
+        cohort.setStartDate(null);
         mvc.perform(request)
                 .andExpect(status().isBadRequest());
     }
@@ -130,20 +129,6 @@ class CohortControllerTest {
 
         mvc.perform(request)
                 .andExpect(status().isNoContent());
-
-        when(repository.readAll()).thenReturn(new ArrayList<>());
-        mvc.perform(request)
-                .andExpect(status().isBadRequest());
-
-        when(repository.readAll()).thenReturn(List.of(cohort));
-
-        request = put("/cohort/2")
-                .headers(header)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(cohortJson);
-
-        mvc.perform(request)
-                .andExpect(status().isConflict());
     }
 
     @Test

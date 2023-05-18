@@ -68,7 +68,7 @@ public class ContractorCohortModuleService {
 
 
 
-    Result<Void> delete(int contractorId, int cohortId, int moduleId) {
+    public Result<Void> delete(int contractorId, int cohortId, int moduleId) {
         Result<Void> result = new Result<>();
         validateContains(result, contractorId, cohortId, moduleId);
         if(!result.isSuccessful()) return result;

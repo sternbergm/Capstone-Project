@@ -66,7 +66,7 @@ public class ContractorJdbcTemplateRepository implements ObjectRepository<Contra
 
     @Override
     public Contractor create(Contractor contractor) {
-        final String sql = "insert into Contractors (first_name, last_name, date_of_birth, address, email,salary,isHired) " +
+        final String sql = "insert into contractors (first_name, last_name, date_of_birth, address, email,salary,isHired) " +
                 "values (?,?,?,?,?,?,?);";
 
         int rowsAffected = 0;

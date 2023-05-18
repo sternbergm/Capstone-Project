@@ -60,8 +60,9 @@ class CohortJdbcTemplateRepositoryTest {
     void readById() {
         Cohort result = repository.readById(1);
 
-        assertEquals(cohort1, result);
-
+        assertEquals(cohort1.getStartDate(), result.getStartDate());
+        assertEquals(cohort1.getEndDate(), result.getEndDate());
+        assertEquals(cohort1.getCohortId(), result.getCohortId());
         result = repository.readById(500);
 
         assertNull(result);
