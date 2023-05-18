@@ -22,6 +22,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -115,11 +116,49 @@ class ContractorCohortModuleControllerTest {
     }
 
     @Test
-    void update() {
+    void update() throws Exception {
+        when(repository.update(ccm)).thenReturn(true);
+        when(repository.readAll()).thenReturn(List.of(ccm));
+        when(contractorRepository.readById(1)).thenReturn(new Contractor());
+        when(cohortRepository.readById(1)).thenReturn(new Cohort());
+        when(moduleRepository.readById(1)).thenReturn(new Module());
+
+        String jsonCcm = jsonMapper.writeValueAsString(ccm);
+
+        HttpHeaders header = new HttpHeaders();
+        header.add("Authorization", "Bearer "+token);
+
+        var request = put("/grade")
+                .headers(header)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonCcm);
+
+        mvc.perform(request)
+                .andExpect(status().isNoContent());
+
+        when(repository.readAll()).thenReturn(new ArrayList<>());
+
+        mvc.perform(request)
+                .andExpect(status().isBadRequest());
     }
 
     @Test
-    void delete() {
+    void testDelete() throws Exception {
+        when(repository.deleteByIds(1, 1, 1)).thenReturn(true);
+        when(repository.readAll()).thenReturn(List.of(ccm));
+
+        String jsonCcm = jsonMapper.writeValueAsString(ccm);
+
+        HttpHeaders header = new HttpHeaders();
+        header.add("Authorization", "Bearer "+token);
+
+        var request = delete("/grade")
+                .headers(header)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonCcm);
+
+        mvc.perform(request)
+                .andExpect(status().isNoContent());
     }
 
 
