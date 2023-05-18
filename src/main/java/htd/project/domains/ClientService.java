@@ -3,9 +3,6 @@ package htd.project.domains;
 import htd.project.data.ContractorCohortModuleRepository;
 import htd.project.data.ObjectRepository;
 import htd.project.models.Client;
-import htd.project.models.Module;
-
-
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -15,11 +12,11 @@ import java.util.Set;
 
 public class ClientService {
     private ObjectRepository<Client> repository;
-    //private ContractorCohortModuleRepository CCMRepository;
+    private ContractorCohortModuleRepository CCMRepository;
 
     public ClientService(ObjectRepository<Client> repository, ContractorCohortModuleRepository CCMRepository) {
         this.repository = repository;
-       // this.CCMRepository = CCMRepository;
+        this.CCMRepository = CCMRepository;
     }
 
     public List<Client> findAll() {
@@ -40,7 +37,6 @@ public class ClientService {
             result.addMessage("Database Error when creating client");
             return result;
         }
-
         result.setPayload(client);
         return result;
     }
@@ -66,7 +62,6 @@ public class ClientService {
         if(!repository.delete(clientId)) {
             result.addMessage("Database Error when deleting client");
         }
-
         return result;
     }
     private Result<Client> validate(Client client){
@@ -85,11 +80,6 @@ public class ClientService {
 
             return result;
         }
-
-//        if(module.getStartDate().isAfter(module.getEndDate())) {
-//            result.addMessage("Start date cannot be before end date");
-//        }
-
         return result;
     }
 
@@ -105,11 +95,6 @@ public class ClientService {
         Result<Void> result = new Result<>();
         validateContains(clientId, result);
         if(!result.isSuccessful()) return result;
-
-//        if(CCMRepository.readByClient(clientId).size()>0) {
-//            result.addMessage("Client is currently in use in a cohort, you must delete this relation first");
-//        }
-
         return result;
     }
 

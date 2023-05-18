@@ -3,8 +3,6 @@ package htd.project.domains;
 import htd.project.data.ContractorCohortModuleRepository;
 import htd.project.data.ObjectRepository;
 import htd.project.models.Contractor;
-import htd.project.models.Module;
-
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -104,17 +102,15 @@ public class ContractorService {
         if(CCMRepository.readByContractor(contractorId).size()>0) {
             result.addMessage("contractor is currently in use in a cohort, you must delete this relation first");
         }
-
         return result;
     }
 
-    private void validateContains(int moduleId, Result result) {
+    private void validateContains(int contractorId, Result result) {
         List<Contractor> contractors = findAll();
-        if(contractors.stream().noneMatch(m -> m.getContractorId() == moduleId)) {
-            result.addMessage("Module Id not present in modules");
+        if(contractors.stream().noneMatch(m -> m.getContractorId() == contractorId)) {
+            result.addMessage("Contractor not present in Contractors");
         }
     }
-
 }
 
 
