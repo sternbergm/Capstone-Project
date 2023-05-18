@@ -108,15 +108,15 @@ async function updateclient() {
 
 async function deleteClient() {
     let token = await getAuth();
-    let moduleId = prompt("what is the Id of the client you wish to delete? ");
+    let clientId = prompt("what is the Id of the client you wish to delete? ");
 
-    return fetch(`http://localhost:8080/client/${moduleId}`, 
+    return fetch(`http://localhost:8080/client/${clientId}`, 
     {method: "DELETE", 
     headers: {"Content-Type": "application/json", accept: "application/json", authorization: "Bearer " + token.jwt_token}})
     .then(async (response) => {
         if (response.status !== 204) {
             return Promise.reject((await response.json())[0]);
         }
-        return `Client ${client} was deleted.`;
+        return `Client ${clientId} was deleted.`;
     });
 }

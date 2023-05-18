@@ -35,10 +35,10 @@ export async function moduleController() {
 
 async function getAllModules() {
     return fetch("http://localhost:8080/module", {method: "GET", headers: {"Content-Type": "application/json"}})
-    .then((response) => {
+    .then(async (response) => {
         if (response.status !== 200) {
             console.log(response);
-            return Promise.reject("The promise was not okay.");
+            return Promise.reject((await response.json())[0]);
         }
         return response.json();
     }).catch((err) => console.log(err));
@@ -47,10 +47,10 @@ async function getAllModules() {
 async function getModuleById() {
     let moduleId = prompt("Enter module Id you wish to view");
     return fetch(`http://localhost:8080/module/${moduleId}`, {method: "GET", headers: {"Content-Type": "application/json"}})
-    .then((response) => {
+    .then(async (response) => {
         if (response.status !== 200) {
             console.log(response);
-            return Promise.reject("The promise was not okay.");
+            return Promise.reject((await response.json())[0]);
         }
         return response.json();
     }).catch((err) => console.log(err));
@@ -70,10 +70,9 @@ async function addModule() {
     {method: "POST", 
     headers: {"Content-Type": "application/json", accept: "application/json", authorization: "Bearer " + token.jwt_token}, 
     body: JSON.stringify(data)})
-    .then((response) => {
+    .then(async (response) => {
         if (response.status !== 201) {
-            console.log(response);
-            return Promise.reject("The promise was not okay.");
+            return Promise.reject((await response.json())[0]);
         }
         return response.json();
     });
@@ -95,10 +94,10 @@ async function updateModule() {
     {method: "PUT", 
     headers: {"Content-Type": "application/json", accept: "application/json", authorization: "Bearer " + token.jwt_token}, 
     body: JSON.stringify(data)})
-    .then((response) => {
+    .then(async (response) => {
         if (response.status !== 204) {
             console.log(response);
-            return Promise.reject("The promise was not okay.");
+            return Promise.reject((await response.json())[0]);
         }
         return `Module ${moduleId} was updated.`;
     });
@@ -112,10 +111,9 @@ async function deleteModule() {
     return fetch(`http://localhost:8080/module/${moduleId}`, 
     {method: "DELETE", 
     headers: {"Content-Type": "application/json", accept: "application/json", authorization: "Bearer " + token.jwt_token}})
-    .then((response) => {
+    .then(async (response) => {
         if (response.status !== 204) {
-            console.log(response);
-            return Promise.reject("The promise was not okay.");
+            return Promise.reject((await response.json())[0]);
         }
         return `Module ${moduleId} was deleted.`;
     });
