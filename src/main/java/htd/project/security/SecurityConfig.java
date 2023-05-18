@@ -46,11 +46,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/create_account").permitAll()
                 .antMatchers("/refresh_token").authenticated()
-                .antMatchers(HttpMethod.GET, "/module", "/module/*", "/cohort", "/cohort/*").permitAll()
+                .antMatchers(HttpMethod.GET, "/module", "/module/*", "/cohort", "/cohort/*", "/client", "/client/*",
+                                                        "/contractor", "/contractor/*","/instructor", "/instructor/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/grade", "/grade/cohort/*", "/grade/contractor/*", "/grade/module/*").permitAll()
-                .antMatchers(HttpMethod.POST, "/module", "/cohort", "/grade").hasAnyRole("USER", "ADMIN")
-                .antMatchers(HttpMethod.PUT, "/module/*", "/cohort/*", "/grade").hasAnyRole("USER", "ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/module/*", "/cohort/*", "/grade").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.POST, "/module", "/cohort", "/grade", "/client", "/contractor", "/instructor").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.PUT, "/module/*", "/cohort/*", "/grade", "/client/*", "/contractor/*", "/instructor/*").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/module/*", "/cohort/*", "/grade", "/client", "/contractor", "/instructor").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/**").denyAll()
                 // if we get to this point, let's deny all requests
                 .and()

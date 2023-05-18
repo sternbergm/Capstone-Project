@@ -2,6 +2,7 @@ package htd.project.domains;
 
 import htd.project.data.ContractorCohortModuleRepository;
 import htd.project.data.ObjectRepository;
+import htd.project.models.Cohort;
 import htd.project.models.Instructor;
 import htd.project.models.Module;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,11 @@ import java.util.Set;
 public class InstructorService {
     private ObjectRepository<Instructor> repository;
 
+    private ObjectRepository<Cohort> cohortRepository;
 
-    public InstructorService(ObjectRepository<Instructor> repository) {
+    public InstructorService(ObjectRepository<Instructor> repository, ObjectRepository<Cohort> cohortRepository) {
         this.repository = repository;
+        this.cohortRepository = cohortRepository;
     }
 
     public List<Instructor> findAll(){
@@ -98,6 +101,11 @@ public class InstructorService {
         Result<Void> result = new Result<>();
         validateContains(instructorId, result);
         if(!result.isSuccessful()) return result;
+
+        List<Cohort> cohorts = cohortRepository.readAll();
+        if(cohorts.stream().anyMatch(c -> c.getInstructor().getInstructorId() == instructorId)) {
+            result.addMessage("Cannot delete instructor, they are currently assigned to a cohort");
+        }
 
         return result;
     }

@@ -3,6 +3,7 @@ package htd.project.domains;
 import htd.project.data.ContractorCohortModuleRepository;
 import htd.project.data.ObjectRepository;
 import htd.project.models.Client;
+import htd.project.models.Cohort;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
@@ -14,9 +15,11 @@ import java.util.Set;
 @Service
 public class ClientService {
     private ObjectRepository<Client> repository;
+    private ObjectRepository<Cohort> cohortRepository;
 
-    public ClientService(ObjectRepository<Client> repository) {
+    public ClientService(ObjectRepository<Client> repository, ObjectRepository<Cohort> cohortRepository) {
         this.repository = repository;
+        this.cohortRepository = cohortRepository;
     }
 
     public List<Client> findAll() {
@@ -95,6 +98,10 @@ public class ClientService {
         Result<Void> result = new Result<>();
         validateContains(clientId, result);
         if(!result.isSuccessful()) return result;
+        List<Cohort> cohorts = cohortRepository.readAll();
+        if(cohorts.stream().anyMatch(c -> c.getClient().getClientId() == clientId)) {
+            result.addMessage("Cannot delete instructor, they are currently assigned to a cohort");
+        }
         return result;
     }
 
