@@ -1,26 +1,33 @@
 import createPrompt from "prompt-sync";
+import {moduleController} from "./controllers/moduleService.js";
 
 const prompt = createPrompt();
-let authToken = "";
+
 
 async function run() {
     let keepRunning = true;
-    
+    console.log("Welcome to the HTD database");
     while (keepRunning) {
-        let choice = prompt("1. Clients\n2. Contractors \n3. Cohorts \n4.Modules \n5. Instructors \n 6. Grades \n enter choice ");
+        let choice = prompt("1. Clients\n2. Contractors \n3. Cohorts \n4.Modules \n5. Instructors \n6. Grades \n enter choice ");
         switch (choice) {
                 case "1":
                     await clientController();
+                    break;
                 case "2":
                     await contractorController(); 
+                    break;
                 case "3":
                     await cohortController();
+                    break;
                 case "4":
                     await moduleController();
-                case "5":
+                    break;
+                case "5": 
                     await instructorController();
+                    break;
                 case "6":
-                    await gradeController();    
+                    await gradeController();  
+                    break;  
             default:
                 keepRunning = false;
                 break;
@@ -29,3 +36,5 @@ async function run() {
         console.clear();
     }
 }
+
+run();

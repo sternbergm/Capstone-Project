@@ -34,7 +34,7 @@ async function refresh() {
 
 }
 
-async function getAuth() {
+export async function getAuth() {
     if(authToken == undefined) {
         await login();
     }

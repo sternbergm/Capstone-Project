@@ -1,6 +1,7 @@
 {
   "name": "frontend",
   "version": "1.0.0",
+  "type": "module",
   "description": "frontend for the HTD Backend Application",
   "main": "index.js",
   "scripts": {
