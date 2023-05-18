@@ -44,7 +44,7 @@ async function getAllCohorts() {
             return Promise.reject((await response.json())[0]);
         }
         return response.json();
-    }).catch((err) => console.log(err));
+    });
 }
 
 async function getCohortsById() {
@@ -55,7 +55,7 @@ async function getCohortsById() {
             return Promise.reject((await response.json())[0]);
         }
         return response.json();
-    }).catch((err) => console.log(err));
+    });
 }
 
 async function addCohort() {

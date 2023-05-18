@@ -93,3 +93,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIVEQtQkFDS0VORCIsInN1YiI6I
     "contractors": [],
     "modules": []
   }
+
+
+###
+
+GET http://localhost:8080/errors HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIVEQtQkFDS0VORCIsInN1YiI6ImpvaG5Ac21pdGguY29tIiwiYXV0aG9yaXRpZXMiOiJST0xFX0FETUlOIiwiZXhwIjoxNjg0NDQ1MTMxfQ.90Lrvhh82tolAHZaEyTjuZWbY3wj_mDorYPlG0vPFS0

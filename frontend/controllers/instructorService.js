@@ -44,7 +44,7 @@ async function getAllInstructors() {
             return Promise.reject((await response.json())[0]);
         }
         return response.json();
-    }).catch((err) => console.log(err));
+    });
 }
 
 async function getInstructorById() {

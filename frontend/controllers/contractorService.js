@@ -43,7 +43,7 @@ async function getAllContractors() {
             return Promise.reject((await response.json())[0]);
         }
         return response.json();
-    }).catch((err) => console.log(err));
+    });
 }
 
 async function getContractorById() {
@@ -54,7 +54,7 @@ async function getContractorById() {
             return Promise.reject((await response.json())[0]);
         }
         return response.json();
-    }).catch((err) => console.log(err));
+    });
 }
 
 async function addcontractor() {
