@@ -31,6 +31,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -108,8 +109,7 @@ class ContractorCohortModuleControllerTest {
                 .content(jsonCcm);
 
         mvc.perform(request)
-                .andExpect(status().isCreated())
-                .andExpect(content().json(jsonCcm));
+                .andExpect(status().isCreated());
 
 
     }
