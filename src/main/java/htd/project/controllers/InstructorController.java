@@ -28,7 +28,7 @@ public class InstructorController {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/{contractorId}")
+    @GetMapping("/{instructorId}")
     public ResponseEntity<Instructor> findById(@PathVariable int instructorId) {
         return new ResponseEntity<>(service.findById(instructorId), HttpStatus.OK);
     }

@@ -40,7 +40,7 @@ public class Contractor {
 
     @Min(value = 1000)
     private BigDecimal salary;
-    @BooleanFlag
+
     public boolean isHired;
 
 

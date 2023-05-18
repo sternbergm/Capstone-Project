@@ -1,11 +1,8 @@
 package htd.project.domains;
 
-import htd.project.data.ContractorCohortModuleRepository;
 import htd.project.data.ObjectRepository;
 import htd.project.models.Cohort;
-import htd.project.models.ContractorCohortModule;
 import htd.project.models.Instructor;
-import htd.project.models.Module;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +49,7 @@ class InstructorServiceTest {
         result = service.create(instructor);
         assertFalse(result.isSuccessful());
         assertNull(result.getPayload());
-        instructor.setLastname(null);
+        instructor.setLastName(null);
         result = service.create(instructor);
         assertFalse(result.isSuccessful());
         assertNull(result.getPayload());

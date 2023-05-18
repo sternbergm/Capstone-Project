@@ -1,7 +1,9 @@
 import createPrompt from "prompt-sync";
 import {moduleController} from "./controllers/moduleService.js";
 import { clientController } from "./controllers/clientService.js";
-
+import { instructorController } from "./controllers/instructorService.js";
+import { cohortController } from "./controllers/cohortService.js";
+import { contractorController } from "./controllers/contractorService.js";
 const prompt = createPrompt();
 
 

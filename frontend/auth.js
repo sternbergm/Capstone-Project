@@ -13,10 +13,9 @@ async function login() {
     {method: "POST", 
     headers: {"Content-Type": "application/json", accept: "application/json"}, 
     body: JSON.stringify({username, password})})
-    .then((response) => {
+    .then(async (response) => {
         if (response.status !== 200) {
-            console.log(response);
-            return Promise.reject("The promise was not okay.");
+            return Promise.reject(await response.text());
         }
         return response.json();
     });
@@ -27,10 +26,10 @@ async function refresh() {
     return fetch("http://localhost:8080/refresh_token", 
     {method: "POST", 
     headers: {"Content-Type": "application/json", accept: "application/json", authorization: "Bearer " + authToken.jwt_token}})
-    .then((response) => {
+    .then(async (response) => {
         if (response.status !== 200) {
             console.log(response);
-            return Promise.reject("The promise was not okay.");
+            return Promise.reject(await response.text());
         }
         return response.json();
     });
@@ -38,12 +37,19 @@ async function refresh() {
 }
 
 export async function getAuth() {
-    if(!authToken) {
-        authToken = await login();
-    }
-    else {
-        authToken = await refresh();
-    }
+
+       try {
+         if(!authToken) {
+             authToken = await login();
+         }
+         else {
+             authToken = await refresh();
+         }
+       } catch (error) {
+            authToken = undefined;
+            throw error;
+       }
+
 
     return authToken;
 }

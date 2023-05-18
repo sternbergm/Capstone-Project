@@ -40,7 +40,7 @@ public class AuthController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<Map<String, String>> authenticate(@RequestBody Map<String, String> credentials) {
+    public ResponseEntity<Object> authenticate(@RequestBody Map<String, String> credentials) {
 
         UsernamePasswordAuthenticationToken authToken =
                 new UsernamePasswordAuthenticationToken(credentials.get("username"), credentials.get("password"));
@@ -58,7 +58,7 @@ public class AuthController {
             }
 
         } catch (AuthenticationException ex) {
-            System.out.println(ex);
+            return new ResponseEntity<>("Bad credentials", HttpStatus.UNAUTHORIZED);
         }
 
         return new ResponseEntity<>(HttpStatus.FORBIDDEN);

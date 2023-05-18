@@ -1,8 +1,6 @@
 package htd.project.data;
 
-import htd.project.data.mappers.ContractorMapper;
 import htd.project.data.mappers.InstructorMapper;
-import htd.project.data.mappers.ModuleMapper;
 import htd.project.models.Instructor;
 
 import org.springframework.dao.DataAccessException;
@@ -11,7 +9,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
@@ -73,7 +70,7 @@ public class InstructorJdbcTemplateRepository implements ObjectRepository<Instru
             rowsAffected = jdbcTemplate.update(connection -> {
                 PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1, instructor.getFirstName());
-                ps.setString(2, instructor.getLastname());
+                ps.setString(2, instructor.getLastName());
                 ps.setInt(3, instructor.getYearsOfExperience());
                 ps.setString(4, instructor.getExpertise());
                 ps.setBigDecimal(5, instructor.getSalary());
@@ -98,7 +95,7 @@ public class InstructorJdbcTemplateRepository implements ObjectRepository<Instru
                 "where instructor_id = ?;";
         int rowsUpdated = 0;
         try {
-            rowsUpdated = jdbcTemplate.update(sql, instructor.getFirstName(),instructor.getLastname(),instructor.getYearsOfExperience(),instructor.getExpertise(),instructor.getSalary(),instructor.getInstructorId());
+            rowsUpdated = jdbcTemplate.update(sql, instructor.getFirstName(),instructor.getLastName(),instructor.getYearsOfExperience(),instructor.getExpertise(),instructor.getSalary(),instructor.getInstructorId());
         } catch (DataAccessException e) {
             return false;
         }

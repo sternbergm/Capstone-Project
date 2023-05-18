@@ -3,31 +3,31 @@ import createPrompt from "prompt-sync";
 
 const prompt = createPrompt();
 
-export async function moduleController() {
+export async function cohortController() {
     let keepRunning = true;
     let response;
-        console.log("1. Read Modules \n2. read module by id\n3. add module \n4. update module \n5. delete module\n");
+        console.log("1. Read cohorts \n2. read cohort by id\n3. add cohort \n4. update cohort \n5. delete cohort\n");
         let choice = prompt("Enter choice: ");
         try {
             switch (choice) {
                     case "1":
-                        response = await getAllModules();
-                        console.log(response);1
+                        response = await getAllCohorts();
+                        console.log(response);
                         break;
                     case "2":
-                        response = await getModuleById(); 
+                        response = await getCohortsById(); 
                         console.log(response);
                         break;
                     case "3":
-                        response = await addModule();
+                        response = await addCohort();
                         console.log(response);
                         break;
                     case "4":
-                        response = await updateModule();
+                        response = await updateCohort();
                         console.log(response);
                         break;
                     case "5": 
-                        response = await deleteModule();
+                        response = await deleteCohort();
                         console.log(response);
                         break;
             }
@@ -37,40 +37,43 @@ export async function moduleController() {
 
 }
 
-async function getAllModules() {
-    return fetch("http://localhost:8080/module", {method: "GET", headers: {"Content-Type": "application/json"}})
+async function getAllCohorts() {
+    return fetch("http://localhost:8080/cohort", {method: "GET", headers: {"Content-Type": "application/json"}})
     .then(async (response) => {
         if (response.status !== 200) {
-            console.log(response);
             return Promise.reject((await response.json())[0]);
         }
         return response.json();
     }).catch((err) => console.log(err));
 }
 
-async function getModuleById() {
-    let moduleId = prompt("Enter module Id you wish to view");
-    return fetch(`http://localhost:8080/module/${moduleId}`, {method: "GET", headers: {"Content-Type": "application/json"}})
+async function getCohortsById() {
+    let moduleId = prompt("Enter cohort Id you wish to view");
+    return fetch(`http://localhost:8080/cohort/${moduleId}`, {method: "GET", headers: {"Content-Type": "application/json"}})
     .then(async (response) => {
         if (response.status !== 200) {
-            console.log(response);
             return Promise.reject((await response.json())[0]);
         }
         return response.json();
     }).catch((err) => console.log(err));
 }
 
-async function addModule() {
+async function addCohort() {
     let token = await getAuth();
     const data = {
-        "topic": prompt("Enter module topic "),
-        "startDate": prompt("Enter module startDate (yyyy-mm-dd) "),
-        "endDate": prompt("Enter module end date (yyyy-mm-dd) "),
-        "exerciseAmount": prompt("Enter number of exercises in the module "),
-        "lessonAmount": prompt("Enter number of lessons in the module ")
+        "startDate": prompt("Enter cohort start date (yyyy-mm-dd) "),
+        "endDate": prompt("Enter cohort end date (yyyy-mm-dd) "),
+        "client": {
+            "clientId": prompt("Enter the client id for which this cohort is being prepared for ")
+        },
+        "instructor": {
+            "instructorId": prompt("Enter the instructor id that will be in charge of this cohort ")
+        },
+        contractors: [],
+        modules: []
     }
 
-    return fetch("http://localhost:8080/module", 
+    return fetch("http://localhost:8080/cohort", 
     {method: "POST", 
     headers: {"Content-Type": "application/json", accept: "application/json", authorization: "Bearer " + token.jwt_token}, 
     body: JSON.stringify(data)})
@@ -82,19 +85,24 @@ async function addModule() {
     });
 }
 
-async function updateModule() {
+async function updateCohort() {
     let token = await getAuth();
-    let moduleId = prompt("what is the Id of the module you wish to update? ");
+    let cohortId = prompt("what is the Id of the cohort you wish to update? ");
     const data = {
-        "moduleId": moduleId,
-        "topic": prompt("Enter module topic "),
-        "startDate": prompt("Enter module startDate (yyyy-mm-dd) "),
-        "endDate": prompt("Enter module end date (yyyy-mm-dd) "),
-        "exerciseAmount": prompt("Enter number of exercises in the module "),
-        "lessonAmount": prompt("Enter number of lessons in the module ")
+        "cohortId": cohortId,
+        "startDate": prompt("Enter cohort start date (yyyy-mm-dd) "),
+        "endDate": prompt("Enter cohort end date (yyyy-mm-dd) "),
+        "client": {
+            "clientId": prompt("Enter the client id for which this cohort is being prepared for ")
+        },
+        "instructor": {
+            "instructorId": prompt("Enter the instructor id that will be in charge of this cohort ")
+        },
+        contractors: [],
+        modules: []
     }
 
-    return fetch(`http://localhost:8080/module/${moduleId}`, 
+    return fetch(`http://localhost:8080/cohort/${cohortId}`, 
     {method: "PUT", 
     headers: {"Content-Type": "application/json", accept: "application/json", authorization: "Bearer " + token.jwt_token}, 
     body: JSON.stringify(data)})
@@ -102,22 +110,22 @@ async function updateModule() {
         if (response.status !== 204) {
             return Promise.reject((await response.json())[0]);
         }
-        return `Module ${moduleId} was updated.`;
+        return `Cohort ${cohortId} was updated.`;
     });
 }
 
 
-async function deleteModule() {
+async function deleteCohort() {
     let token = await getAuth();
-    let moduleId = prompt("what is the Id of the module you wish to delete? ");
+    let cohortId = prompt("what is the Id of the cohort you wish to delete? ");
 
-    return fetch(`http://localhost:8080/module/${moduleId}`, 
+    return fetch(`http://localhost:8080/cohort/${cohortId}`, 
     {method: "DELETE", 
     headers: {"Content-Type": "application/json", accept: "application/json", authorization: "Bearer " + token.jwt_token}})
     .then(async (response) => {
         if (response.status !== 204) {
             return Promise.reject((await response.json())[0]);
         }
-        return `Module ${moduleId} was deleted.`;
+        return `Cohort ${cohortId} was deleted.`;
     });
 }

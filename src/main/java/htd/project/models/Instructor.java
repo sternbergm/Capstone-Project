@@ -23,7 +23,7 @@ public class Instructor {
     @NotBlank(message = "lastName is Required")
     @NotNull(message = "lastName cannot be Null")
     @Size(max = 50, message = "lastName cannot be greater than 50 characters")
-    private String lastname;
+    private String lastName;
 
    @PositiveOrZero
     private int yearsOfExperience;
