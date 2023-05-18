@@ -4,6 +4,7 @@ import htd.project.data.ContractorCohortModuleRepository;
 import htd.project.data.ObjectRepository;
 import htd.project.models.Instructor;
 import htd.project.models.Module;
+import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -11,15 +12,13 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.List;
 import java.util.Set;
-
+@Service
 public class InstructorService {
     private ObjectRepository<Instructor> repository;
 
-    private ContractorCohortModuleRepository CCMRepository;
 
-    public InstructorService(ObjectRepository<Instructor> repository, ContractorCohortModuleRepository CCMRepository) {
+    public InstructorService(ObjectRepository<Instructor> repository) {
         this.repository = repository;
-        this.CCMRepository = CCMRepository;
     }
 
     public List<Instructor> findAll(){
@@ -39,7 +38,6 @@ public class InstructorService {
             result.addMessage("Database Error when creating instructor");
             return result;
         }
-
         result.setPayload(instructor);
         return result;
     }
@@ -85,10 +83,6 @@ public class InstructorService {
             return result;
         }
 
-//        if(instructor.getStartDate().isAfter(module.getEndDate())) {
-//            result.addMessage("Start date cannot be before end date");
-//        }
-
         return result;
     }
 
@@ -104,10 +98,6 @@ public class InstructorService {
         Result<Void> result = new Result<>();
         validateContains(instructorId, result);
         if(!result.isSuccessful()) return result;
-
-//        if(CCMRepository.readByInstructor(instructorId).size()>0) {
-//            result.addMessage("Module is currently in use in a cohort, you must delete this relation first");
-//        }
 
         return result;
     }

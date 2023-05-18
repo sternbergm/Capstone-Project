@@ -8,6 +8,7 @@ import htd.project.models.Module;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.math.BigDecimal;
@@ -17,7 +18,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
-
+@SpringBootTest
 class ContractorServiceTest {
 
     @Autowired
@@ -75,6 +76,7 @@ class ContractorServiceTest {
     void update() {
         when(contractorRepository.update(contractor)).thenReturn(true);
         when(contractorRepository.readAll()).thenReturn(List.of(contractor));
+
         Result<Contractor> result = service.update(contractor);
 
         assertTrue(result.isSuccessful());

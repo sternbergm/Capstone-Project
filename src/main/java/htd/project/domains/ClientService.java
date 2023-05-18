@@ -3,20 +3,20 @@ package htd.project.domains;
 import htd.project.data.ContractorCohortModuleRepository;
 import htd.project.data.ObjectRepository;
 import htd.project.models.Client;
+import org.springframework.stereotype.Service;
+
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.List;
 import java.util.Set;
-
+@Service
 public class ClientService {
     private ObjectRepository<Client> repository;
-    private ContractorCohortModuleRepository CCMRepository;
 
-    public ClientService(ObjectRepository<Client> repository, ContractorCohortModuleRepository CCMRepository) {
+    public ClientService(ObjectRepository<Client> repository) {
         this.repository = repository;
-        this.CCMRepository = CCMRepository;
     }
 
     public List<Client> findAll() {

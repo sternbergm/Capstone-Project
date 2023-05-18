@@ -24,19 +24,16 @@ public class Instructor {
     @NotNull(message = "lastName cannot be Null")
     @Size(max = 50, message = "lastName cannot be greater than 50 characters")
     private String lastname;
-    @NotBlank(message = "yearsOfExperience is Required")
-    @NotNull(message = "yearsOfExperience cannot be Null")
 
-    @Size(max = 50, message = "yearsOfExperience cannot be greater than 50 characters")
+   @PositiveOrZero
     private int yearsOfExperience;
     @NotBlank(message = "expertise is Required")
     @NotNull(message = "expertise cannot be Null")
     @Size(max = 50, message = "expertise cannot be greater than 50 characters")
 
     private String expertise;
-    @NotBlank(message = "salary is Required")
+
     @NotNull(message = "salary cannot be Null")
-    @Size(max = 50, message = "salary cannot be greater than 50 characters")
     private BigDecimal salary;
 
 }

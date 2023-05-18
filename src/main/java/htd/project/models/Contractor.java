@@ -5,10 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -28,7 +25,7 @@ public class Contractor {
     @Size(max = 50, message = "lastName cannot be greater than 50 characters")
 
     private String lastName;
-    @NotBlank(message = "dateOfBirth is Required")
+
     private LocalDate dateOfBirth;
 
     @NotBlank(message = "address is Required")
@@ -41,9 +38,7 @@ public class Contractor {
     @Size(max = 50, message = " email cannot be greater than 50 characters")
     private String email;
 
-    @NotBlank(message = " salary is Required")
-    @NotNull(message = " salary cannot be Null")
-    @Size(max = 50, message = "salary cannot be greater than 50 characters")
+    @Min(value = 1000)
     private BigDecimal salary;
     @BooleanFlag
     public boolean isHired;
