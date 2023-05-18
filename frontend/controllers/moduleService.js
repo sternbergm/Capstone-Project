@@ -6,7 +6,8 @@ const prompt = createPrompt();
 export async function moduleController() {
     let keepRunning = true;
     let response;
-        let choice = prompt("1. Read Modules \n2. read module by id\n 3. add module \n 4. update module \n 5. delete module");
+        console.log("1. Read Modules \n2. read module by id\n3. add module \n4. update module \n5. delete module\n");
+        let choice = prompt("Enter choice: ");
         switch (choice) {
                 case "1":
                     response = await getAllModules();
@@ -54,7 +55,7 @@ async function getModuleById() {
 }
 
 async function addModule() {
-    let token = getAuth();
+    let token = await getAuth();
     const data = {
         "topic": prompt("Enter module topic"),
         "startDate": prompt("Enter module startDate (yyyy-mm-dd)"),
@@ -77,7 +78,7 @@ async function addModule() {
 }
 
 async function updateModule() {
-    let token = getAuth();
+    let token = await getAuth();
     let moduleId = prompt("what is the Id of the module you wish to update?");
     const data = {
         "moduleId": moduleId,
@@ -99,3 +100,4 @@ async function updateModule() {
         }
         return response.json();
     });
+}

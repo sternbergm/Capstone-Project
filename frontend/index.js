@@ -8,7 +8,9 @@ async function run() {
     let keepRunning = true;
     console.log("Welcome to the HTD database");
     while (keepRunning) {
-        let choice = prompt("1. Clients\n2. Contractors \n3. Cohorts \n4.Modules \n5. Instructors \n6. Grades \n enter choice ");
+        console.clear();
+        console.log("1. Clients\n2. Contractors \n3. Cohorts \n4. Modules \n5. Instructors \n6. Grades \n");
+        let choice = prompt("enter choice: ");
         switch (choice) {
                 case "1":
                     await clientController();
